@@ -15,31 +15,33 @@
 
     body {
       font-family: 'Assistant', Arial, sans-serif;
-      background: #f0f4ff;
-      color: #1a1a2e;
+      background: #F8F6F1;
+      color: #2d3436;
       direction: rtl;
       min-height: 100vh;
     }
 
     .hero {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background: linear-gradient(135deg, #0D7377 0%, #14919B 40%, #9CAF88 100%);
       color: #ffffff;
-      padding: 48px 20px 56px;
+      padding: 48px 20px 64px;
       text-align: center;
     }
 
     .hero-badge {
       display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 20px;
-      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 24px;
+      padding: 8px 20px;
       font-size: 14px;
+      font-weight: 600;
       margin-bottom: 20px;
+      letter-spacing: 0.5px;
     }
 
     .hero h1 {
-      font-size: 36px;
+      font-size: 38px;
       font-weight: 800;
       line-height: 1.3;
       margin-bottom: 16px;
@@ -47,9 +49,9 @@
 
     .hero p {
       font-size: 18px;
-      line-height: 1.6;
-      opacity: 0.9;
-      max-width: 500px;
+      line-height: 1.7;
+      opacity: 0.92;
+      max-width: 480px;
       margin: 0 auto;
     }
 
@@ -66,31 +68,96 @@
       align-items: center;
       gap: 8px;
       font-size: 15px;
-      opacity: 0.85;
+      font-weight: 600;
+      opacity: 0.9;
     }
 
     .detail-item span {
       font-size: 20px;
     }
 
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+      direction: rtl;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 14px;
+      padding: 14px 10px 10px;
+      min-width: 68px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .countdown-item .number {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-item .label {
+      font-size: 12px;
+      opacity: 0.75;
+      margin-top: 4px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .countdown-expired {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 28px;
+      color: #ffeaa7;
+    }
+
+    /* Form area */
     .container {
-      max-width: 520px;
-      margin: -32px auto 40px;
+      max-width: 500px;
+      margin: -36px auto 40px;
       padding: 0 20px;
+    }
+
+    .social-proof {
+      text-align: center;
+      margin-bottom: 12px;
+      padding-top: 8px;
+    }
+
+    .social-proof p {
+      font-size: 14px;
+      color: #0D7377;
+      font-weight: 700;
     }
 
     .form-card {
       background: #ffffff;
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 32px rgba(13, 115, 119, 0.1);
+      border: 1px solid rgba(13, 115, 119, 0.06);
     }
 
     .form-card h2 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 24px;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
       text-align: center;
+      color: #0D7377;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      font-size: 15px;
+      color: #636e72;
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
 
     .field {
@@ -100,140 +167,127 @@
     .field label {
       display: block;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 6px;
-      color: #333;
+      color: #2d3436;
+    }
+
+    .field-hint {
+      font-size: 13px;
+      color: #b2bec3;
+      font-weight: 400;
+      margin-right: 4px;
     }
 
     .field input,
     .field select {
       width: 100%;
-      padding: 12px 14px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
+      padding: 13px 16px;
+      border: 2px solid #e8e8e8;
+      border-radius: 12px;
       font-size: 16px;
       font-family: 'Assistant', Arial, sans-serif;
       direction: rtl;
-      transition: border-color 0.2s;
-      background: #fafafa;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafaf8;
     }
 
     .field input:focus,
     .field select:focus {
       outline: none;
-      border-color: #5046e5;
+      border-color: #14919B;
       background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(20, 145, 155, 0.1);
     }
 
     .field input::placeholder {
-      color: #aaa;
+      color: #b2bec3;
     }
 
     .submit-btn {
       width: 100%;
-      padding: 14px;
-      background: #5046e5;
+      padding: 15px;
+      background: #E8734A;
       color: #ffffff;
       border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      font-weight: 700;
+      border-radius: 12px;
+      font-size: 19px;
+      font-weight: 800;
       font-family: 'Assistant', Arial, sans-serif;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
       margin-top: 8px;
     }
 
     .submit-btn:hover {
-      background: #3d35c4;
+      background: #d4622e;
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
     }
 
     .submit-btn:disabled {
-      background: #aaa;
+      background: #b2bec3;
       cursor: not-allowed;
+      transform: none;
     }
 
+    .trust-line {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #b2bec3;
+    }
+
+    /* Success */
     .success-msg {
       display: none;
       text-align: center;
-      padding: 32px 20px;
+      padding: 40px 20px;
     }
 
     .success-msg .checkmark {
-      font-size: 48px;
-      margin-bottom: 12px;
+      font-size: 56px;
+      margin-bottom: 16px;
     }
 
     .success-msg h3 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 8px;
+      font-size: 24px;
+      font-weight: 800;
+      color: #0D7377;
+      margin-bottom: 10px;
     }
 
     .success-msg p {
       font-size: 16px;
-      color: #666;
-      line-height: 1.6;
-    }
-
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 28px;
-      direction: rtl;
-    }
-
-    .countdown-item {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      padding: 14px 12px 10px;
-      min-width: 72px;
-      text-align: center;
-    }
-
-    .countdown-item .number {
-      font-size: 32px;
-      font-weight: 800;
-      line-height: 1;
-      display: block;
-    }
-
-    .countdown-item .label {
-      font-size: 13px;
-      opacity: 0.7;
-      margin-top: 4px;
-      display: block;
-    }
-
-    .countdown-expired {
-      font-size: 18px;
-      font-weight: 700;
-      margin-top: 28px;
-      color: #ffd700;
+      color: #636e72;
+      line-height: 1.7;
     }
 
     .footer {
       text-align: center;
-      padding: 20px;
+      padding: 24px 20px;
       font-size: 13px;
-      color: #999;
+      color: #b2bec3;
     }
 
     @media (max-width: 480px) {
-      .hero { padding: 36px 16px 44px; }
-      .hero h1 { font-size: 28px; }
+      .hero { padding: 36px 16px 52px; }
+      .hero h1 { font-size: 30px; }
       .hero p { font-size: 16px; }
-      .form-card { padding: 24px 20px; }
-      .details { gap: 16px; }
+      .form-card { padding: 28px 20px; }
+      .details { gap: 14px; }
+      .countdown { gap: 8px; }
+      .countdown-item { min-width: 60px; padding: 12px 8px 8px; }
+      .countdown-item .number { font-size: 26px; }
     }
   </style>
 </head>
 <body>
   <section class="hero">
-    <div class="hero-badge">🎓 סדנה מעשית</div>
+    <div class="hero-badge">🎓 סדנה מעשית למורים</div>
     <h1>סדנת Google Classroom<br>למורים</h1>
     <p>למדו לנהל כיתה דיגיטלית, ליצור מטלות, ולעקוב אחרי התקדמות התלמידים — הכל בשעה וחצי.</p>
     <div class="details">
@@ -246,20 +300,25 @@
   </section>
 
   <div class="container">
+    <div class="social-proof">
+      <p>🙋 הצטרפו ל-200+ מורים שכבר נרשמו</p>
+    </div>
+
     <div class="form-card">
       <div id="form-view">
-        <h2>הרשמה לסדנה</h2>
+        <h2>שמרו לכם מקום!</h2>
+        <p class="form-subtitle">מלאו את הפרטים ונשלח לכם תזכורות לפני הסדנה</p>
         <form id="signup-form">
           <div class="field">
             <label for="name">שם מלא</label>
-            <input type="text" id="name" name="name" placeholder="הכנס/י את השם שלך" required>
+            <input type="text" id="name" name="name" placeholder="איך קוראים לך?" required>
           </div>
           <div class="field">
-            <label for="email">אימייל</label>
+            <label for="email">אימייל <span class="field-hint">— לשליחת תזכורות וקישור לזום</span></label>
             <input type="email" id="email" name="email" placeholder="example@email.com" dir="ltr" required>
           </div>
           <div class="field">
-            <label for="phone">טלפון</label>
+            <label for="phone">טלפון <span class="field-hint">— לתזכורת בווטסאפ</span></label>
             <input type="tel" id="phone" name="phone" placeholder="050-1234567" dir="ltr" required>
           </div>
           <div class="field">
@@ -272,14 +331,15 @@
               <option value="advanced">מתקדם/ת — רוצה ללמוד טיפים חדשים</option>
             </select>
           </div>
-          <button type="submit" class="submit-btn" id="submit-btn">הרשמה לסדנה →</button>
+          <button type="submit" class="submit-btn" id="submit-btn">שמרו לי מקום! →</button>
+          <div class="trust-line">🔒 ללא ספאם. רק תוכן שימושי לפני הסדנה.</div>
         </form>
       </div>
 
       <div class="success-msg" id="success-view">
-        <div class="checkmark">✅</div>
-        <h3>נרשמת בהצלחה!</h3>
-        <p>תודה שנרשמת לסדנה. נשלח לך עדכונים למייל ולטלפון שהזנת.</p>
+        <div class="checkmark">🎉</div>
+        <h3>מעולה, נרשמת בהצלחה!</h3>
+        <p>שמחים שהצטרפת! נשלח לך תזכורות למייל ולווטסאפ לפני הסדנה. נתראה ב-15 באפריל!</p>
       </div>
     </div>
   </div>
@@ -288,7 +348,6 @@
 
   <script>
     // ===== COUNTDOWN TIMER =====
-    // Change this date to your workshop date (Israel time)
     const WORKSHOP_DATE = new Date("2026-04-15T18:00:00+03:00");
 
     function updateCountdown() {
@@ -351,7 +410,7 @@
       } catch (err) {
         alert("שגיאה בשליחה. נסה/י שוב.");
         submitBtn.disabled = false;
-        submitBtn.textContent = "הרשמה לסדנה →";
+        submitBtn.textContent = "שמרו לי מקום! →";
       }
     });
   </script>
