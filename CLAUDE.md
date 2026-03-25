@@ -29,7 +29,7 @@ src/
   sendAutoEmail.ts         — Send email with tracked button
   webhook.ts               — Express webhook listener for tracking
 workshop/
-  index.html               — Workshop signup form (warm & supportive design)
+  index.html               — Workshop signup form (3 fields: name, email, WhatsApp)
   gallery.html             — Design gallery with 8 form styles
 docs/
   index.html               — GitHub Pages copy of workshop form
@@ -63,14 +63,49 @@ N8N_BASE_URL=https://n8n.srv1038526.hstgr.cloud
 - **Default from address:** `omri@mail.omri-iram.co.il`
 - Never use `onboarding@resend.dev` in production
 
-## Resend Contacts & Segments
-- **Contact properties:** experience_level, signup_source, workshop_name, phone
-- **Segments:** "כל המנויים" (master), "סדנת Google Classroom" (workshop-specific)
-- Free plan limit: 3 segments max
-- Contacts API: `POST https://api.resend.com/contacts`
-- **Segments format:** `[{id: "uuid"}]` not `["uuid"]` — objects, not strings!
-- **n8n integration:** Use Code node with `this.helpers.httpRequest()` for nested JSON (HTTP Request node can't do it)
-- Segments API: `POST https://api.resend.com/segments`
+## Resend Audience Organization
+
+### Two-Track Sending Model
+| Track | Mechanism | Resend feature | Examples |
+|-------|-----------|---------------|----------|
+| **Drip (per-person)** | n8n Wait nodes → direct `POST /emails` | None needed | Workshop confirmation, reminders, "starting now" |
+| **Broadcast (bulk)** | Resend `POST /broadcasts` | Audience (required) + Topic (optional) | Weekly newsletter, announcements, re-engagement |
+
+Workshop reminders are drip emails — they don't need audiences or topics. This means we never need an audience per workshop.
+
+### Audiences (2 of 3 max on free plan)
+| Audience | ID | Who's in it |
+|----------|----|-------------|
+| All Subscribers | `8d799f25-66f6-4906-8df7-61bea6e53774` | Every contact |
+| Workshop Attendees | `d7938ef7-847c-42a9-bbe1-ca5c287d9d69` | Anyone who signed up for any workshop |
+| *(reserved)* | — | Future use (e.g., "Paid Customers") |
+
+### Topics (unlimited on free plan, contacts can opt in/out)
+| Topic | ID | Used with |
+|-------|----|-----------|
+| Weekly Tips | `45be5e64-2d60-474d-b4fe-1f87935828c7` | Newsletter broadcasts |
+| Announcements | `fe56b5e9-c7cc-4bd7-a0ad-a8f45a6d72cc` | Course/event announcements |
+| Workshop Updates | `9a208caf-6f44-414f-aab2-4c817fb9902a` | Cross-workshop promotions |
+| Personal Messages | `eaf36d3c-e332-43ac-aa76-d8e3d1832c1b` | Plain text emails |
+
+### Contact Properties
+- `signup_source` — "workshop_form", "newsletter", "youtube"
+- `workshop_name` — latest workshop (Google Sheets is source of truth for full history)
+- `phone` — WhatsApp number from signup form
+
+### Sending Guide
+| What | How | Audience | Topic |
+|------|-----|----------|-------|
+| Workshop reminders | n8n drip (direct API) | — | — |
+| Weekly newsletter | Broadcast | All Subscribers | Weekly Tips |
+| New course announcement | Broadcast | All Subscribers | Announcements |
+| "New workshop for past attendees" | Broadcast | Workshop Attendees | Workshop Updates |
+| Personal message blast | Broadcast | All Subscribers | Personal Messages |
+
+### API Notes
+- Contacts API: `POST https://api.resend.com/audiences/{audience_id}/contacts`
+- **n8n integration:** Use Code node with `this.helpers.httpRequest()` for nested JSON
+- Audience names must always be in English, never Hebrew
 
 ## Workshop Signup Flow
 Full automated pipeline when someone signs up:

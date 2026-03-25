@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>וובינר Gemini Gems בחינוך — עומרי אירם</title>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w1ajcl9gof");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Assistant', Arial, sans-serif;
+      background: #F8F6F1;
+      color: #2d3436;
+      direction: rtl;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0D7377 0%, #14919B 40%, #9CAF88 100%);
+      color: #ffffff;
+      padding: 48px 20px 64px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 24px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: 0.92;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .details {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .detail-item span {
+      font-size: 20px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+      direction: rtl;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 14px;
+      padding: 14px 10px 10px;
+      min-width: 68px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .countdown-item .number {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-item .label {
+      font-size: 12px;
+      opacity: 0.75;
+      margin-top: 4px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .countdown-expired {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 28px;
+      color: #ffeaa7;
+    }
+
+    /* Form area */
+    .container {
+      max-width: 500px;
+      margin: -36px auto 40px;
+      padding: 0 20px;
+    }
+
+    .social-proof {
+      text-align: center;
+      margin-bottom: 12px;
+      padding-top: 8px;
+    }
+
+    .social-proof p {
+      font-size: 14px;
+      color: #0D7377;
+      font-weight: 700;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 32px rgba(13, 115, 119, 0.1);
+      border: 1px solid rgba(13, 115, 119, 0.06);
+    }
+
+    .form-card h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-align: center;
+      color: #0D7377;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      font-size: 15px;
+      color: #636e72;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* Step indicators */
+    .step-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .step-dot.active {
+      background: #0D7377;
+      transform: scale(1.2);
+    }
+
+    .step-dot.completed {
+      background: #9CAF88;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #2d3436;
+    }
+
+    .field-hint {
+      font-size: 13px;
+      color: #b2bec3;
+      font-weight: 400;
+      margin-right: 4px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid #e8e8e8;
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: 'Assistant', Arial, sans-serif;
+      direction: rtl;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafaf8;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #14919B;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(20, 145, 155, 0.1);
+    }
+
+    .field input::placeholder {
+      color: #b2bec3;
+    }
+
+    /* Checkbox */
+    .consent-field {
+      margin-bottom: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .consent-field input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: #0D7377;
+      cursor: pointer;
+    }
+
+    .consent-field label {
+      font-size: 14px;
+      color: #636e72;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: #E8734A;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 19px;
+      font-weight: 800;
+      font-family: 'Assistant', Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      background: #d4622e;
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      background: #b2bec3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .trust-line {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #b2bec3;
+    }
+
+    /* Step sections */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    /* Success / Confirmation */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .success-msg .checkmark {
+      font-size: 56px;
+      margin-bottom: 16px;
+    }
+
+    .success-msg h3 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0D7377;
+      margin-bottom: 10px;
+    }
+
+    .success-msg p {
+      font-size: 16px;
+      color: #636e72;
+      line-height: 1.7;
+    }
+
+    .event-details-box {
+      background: #f0fafa;
+      border: 2px solid #d0eded;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: right;
+    }
+
+    .event-details-box .detail-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2d3436;
+    }
+
+    .event-details-box .detail-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .event-details-box .detail-row span {
+      font-size: 18px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 13px;
+      color: #b2bec3;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 36px 16px 52px; }
+      .hero h1 { font-size: 30px; }
+      .hero p { font-size: 16px; }
+      .form-card { padding: 28px 20px; }
+      .details { gap: 14px; }
+      .countdown { gap: 8px; }
+      .countdown-item { min-width: 60px; padding: 12px 8px 8px; }
+      .countdown-item .number { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-badge">🎓 וובינר למורים</div>
+    <h1>Gemini Gems בחינוך</h1>
+    <p>למדו לבנות צ'אטבוטים חינוכיים חכמים לתלמידים שלכם בעזרת Gemini Gems — בשידור חי ביוטיוב!</p>
+    <div class="details">
+      <div class="detail-item"><span>📅</span> שבת, 28 במרץ 2026, 20:30</div>
+      <div class="detail-item"><span>🕐</span> שעה</div>
+      <div class="detail-item"><span>▶️</span> שידור חי ביוטיוב</div>
+    </div>
+
+    <div id="countdown" class="countdown"></div>
+  </section>
+
+  <div class="container">
+    <div class="social-proof">
+      <p>🤖 צ'אטבוטים חינוכיים — הכלי הבא של כל מורה</p>
+    </div>
+
+    <div class="form-card">
+      <!-- Step indicators -->
+      <div class="step-indicators">
+        <div class="step-dot active" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+      </div>
+
+      <!-- STEP 1: Signup -->
+      <div class="form-step active" id="step-1">
+        <h2>שמרו לכם מקום!</h2>
+        <p class="form-subtitle">מלאו את הפרטים ונשלח לכם את הלינק לשידור החי</p>
+
+        <div class="field">
+          <label for="name">שם מלא</label>
+          <input type="text" id="name" placeholder="איך קוראים לך?" required>
+        </div>
+        <div class="field">
+          <label for="email">אימייל <span class="field-hint">— לשליחת הלינק לשידור</span></label>
+          <input type="email" id="email" placeholder="example@email.com" dir="ltr" required>
+        </div>
+        <div class="field">
+          <label for="phone">טלפון <span class="field-hint">— לתזכורת בווטסאפ</span></label>
+          <input type="tel" id="phone" placeholder="050-1234567" dir="ltr" required>
+        </div>
+        <div class="consent-field">
+          <input type="checkbox" id="consent" required>
+          <label for="consent">אני מסכים/ה לקבל עדכונים ותוכן חינוכי מעומרי אירם</label>
+        </div>
+        <button type="button" class="submit-btn" id="next-btn" onclick="goToStep2()">המשך →</button>
+        <div class="trust-line">🔒 ללא ספאם. רק תוכן שימושי.</div>
+      </div>
+
+      <!-- STEP 2: Survey -->
+      <div class="form-step" id="step-2">
+        <h2>עוד רגע וסיימנו!</h2>
+        <p class="form-subtitle">ענו על שאלה קצרה כדי שנוכל להתאים את התוכן</p>
+
+        <div class="field">
+          <label for="gems_experience">מה רמת הניסיון שלך עם Gemini Gems?</label>
+          <select id="gems_experience" required>
+            <option value="" disabled selected>בחר/י רמה</option>
+            <option value="dont_know">לא יודע/ת מה זה</option>
+            <option value="heard">שמעתי על זה אבל לא ניסיתי</option>
+            <option value="tried">ניסיתי לבנות Gem</option>
+            <option value="regular">אני משתמש/ת ב-Gems באופן קבוע</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="learning_goal">מה הכי מעניין אותך ללמוד? <span class="field-hint">— לא חובה</span></label>
+          <select id="learning_goal">
+            <option value="" selected>בחר/י נושא</option>
+            <option value="first_gem">איך ליצור את ה-Gem הראשון שלי</option>
+            <option value="advanced">פרומפטינג מתקדם ל-Gems</option>
+            <option value="students">שימוש ב-Gems עם תלמידים</option>
+            <option value="other">אחר / סתם סקרני/ת</option>
+          </select>
+        </div>
+        <button type="button" class="submit-btn" id="submit-btn" onclick="submitForm()">הרשמה! 🚀</button>
+      </div>
+
+      <!-- STEP 3: Confirmation -->
+      <div class="success-msg" id="step-3">
+        <div class="checkmark">🎉</div>
+        <h3>נרשמת בהצלחה!</h3>
+        <p>שלחנו לך אימייל עם הלינק לשידור החי.</p>
+
+        <div class="event-details-box">
+          <div class="detail-row"><span>📅</span> שבת, 28 במרץ 2026</div>
+          <div class="detail-row"><span>🕗</span> 20:30 — 21:30</div>
+          <div class="detail-row"><span>▶️</span> שידור חי ביוטיוב</div>
+        </div>
+
+        <p>השיעור יוקלט ויישלח לכל הנרשמים.<br>אם לא תוכלו להגיע — ההקלטה תחכה לכם 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">עומרי אירם • וובינרים וסדנאות AI למורים</div>
+
+  <script>
+    // ===== COUNTDOWN TIMER =====
+    const EVENT_DATE = new Date("2026-03-28T20:30:00+03:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = EVENT_DATE - now;
+      const container = document.getElementById("countdown");
+
+      if (diff <= 0) {
+        container.innerHTML = '<div class="countdown-expired">השידור החי כבר התחיל!</div>';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      container.innerHTML = `
+        <div class="countdown-item"><span class="number">${String(seconds).padStart(2, '0')}</span><span class="label">שניות</span></div>
+        <div class="countdown-item"><span class="number">${String(minutes).padStart(2, '0')}</span><span class="label">דקות</span></div>
+        <div class="countdown-item"><span class="number">${String(hours).padStart(2, '0')}</span><span class="label">שעות</span></div>
+        <div class="countdown-item"><span class="number">${String(days).padStart(2, '0')}</span><span class="label">ימים</span></div>
+      `;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ===== MULTI-STEP FORM =====
+    // TODO: Replace with your Google Apps Script URL for the GEMS Webinar sheet
+    const GOOGLE_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+
+    let formData = {};
+
+    function goToStep2() {
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const phone = document.getElementById("phone");
+      const consent = document.getElementById("consent");
+
+      // Validate step 1
+      if (!name.value.trim()) { name.focus(); return; }
+      if (!email.value.trim() || !email.validity.valid) { email.focus(); return; }
+      if (!phone.value.trim()) { phone.focus(); return; }
+      if (!consent.checked) { consent.focus(); return; }
+
+      // Store data
+      formData.name = name.value.trim();
+      formData.email = email.value.trim();
+      formData.phone = phone.value.trim();
+      formData.consent = true;
+
+      // Switch to step 2
+      document.getElementById("step-1").classList.remove("active");
+      document.getElementById("step-2").classList.add("active");
+      document.getElementById("step-2").style.display = "block";
+      document.getElementById("dot-1").classList.remove("active");
+      document.getElementById("dot-1").classList.add("completed");
+      document.getElementById("dot-2").classList.add("active");
+    }
+
+    async function submitForm() {
+      const gemsExperience = document.getElementById("gems_experience");
+      const learningGoal = document.getElementById("learning_goal");
+
+      // Validate step 2
+      if (!gemsExperience.value) { gemsExperience.focus(); return; }
+
+      const submitBtn = document.getElementById("submit-btn");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "שולח...";
+
+      // Complete data
+      formData.gems_experience = gemsExperience.value;
+      formData.learning_goal = learningGoal.value || "";
+      formData.timestamp = new Date().toLocaleString("he-IL");
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        // Switch to step 3 (confirmation)
+        document.getElementById("step-2").classList.remove("active");
+        document.getElementById("step-2").style.display = "none";
+        document.getElementById("step-3").style.display = "block";
+        document.getElementById("dot-2").classList.remove("active");
+        document.getElementById("dot-2").classList.add("completed");
+        document.getElementById("dot-3").classList.add("active");
+
+        // Hide step indicators
+        document.querySelector(".step-indicators").style.display = "none";
+      } catch (err) {
+        alert("שגיאה בשליחה. נסו שוב.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "הרשמה! 🚀";
+      }
+    }
+  </script>
+</body>
+</html>

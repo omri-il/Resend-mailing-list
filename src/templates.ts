@@ -2,6 +2,7 @@ import { WelcomeHebrew } from "../emails/WelcomeHebrew.js";
 import { Newsletter } from "../emails/Newsletter.js";
 import { Announcement } from "../emails/Announcement.js";
 import { PlainText } from "../emails/PlainText.js";
+import { GemsWebinarConfirmation } from "../emails/GemsWebinarConfirmation.js";
 
 interface TemplateEntry {
   component: (props: any) => React.ReactElement;
@@ -34,6 +35,12 @@ export const templates: Record<string, TemplateEntry> = {
     defaultSubject: "הודעה מעומרי אירם",
     description: "Simple personal text message",
     props: ["to", "message"],
+  },
+  "gems-confirmation": {
+    component: GemsWebinarConfirmation,
+    defaultSubject: "נרשמת בהצלחה! וובינר Gemini Gems בחינוך 🎓",
+    description: "GEMS Webinar confirmation with YouTube Live link",
+    props: ["firstName", "youtubeUrl"],
   },
 };
 
