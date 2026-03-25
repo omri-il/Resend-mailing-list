@@ -67,6 +67,8 @@ N8N_BASE_URL=https://n8n.srv1038526.hstgr.cloud
 - **Segments:** "כל המנויים" (master), "סדנת Google Classroom" (workshop-specific)
 - Free plan limit: 3 segments max
 - Contacts API: `POST https://api.resend.com/contacts`
+- **Segments format:** `[{id: "uuid"}]` not `["uuid"]` — objects, not strings!
+- **n8n integration:** Use Code node with `this.helpers.httpRequest()` for nested JSON (HTTP Request node can't do it)
 - Segments API: `POST https://api.resend.com/segments`
 
 ## Workshop Signup Flow
