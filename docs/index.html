@@ -182,7 +182,7 @@
       justify-content: center;
       gap: 16px;
       margin-top: 28px;
-      direction: ltr;
+      direction: rtl;
     }
 
     .countdown-item {
@@ -307,10 +307,10 @@
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       container.innerHTML = `
-        <div class="countdown-item"><span class="number">${String(seconds).padStart(2, '0')}</span><span class="label">שניות</span></div>
-        <div class="countdown-item"><span class="number">${String(minutes).padStart(2, '0')}</span><span class="label">דקות</span></div>
-        <div class="countdown-item"><span class="number">${String(hours).padStart(2, '0')}</span><span class="label">שעות</span></div>
         <div class="countdown-item"><span class="number">${String(days).padStart(2, '0')}</span><span class="label">ימים</span></div>
+        <div class="countdown-item"><span class="number">${String(hours).padStart(2, '0')}</span><span class="label">שעות</span></div>
+        <div class="countdown-item"><span class="number">${String(minutes).padStart(2, '0')}</span><span class="label">דקות</span></div>
+        <div class="countdown-item"><span class="number">${String(seconds).padStart(2, '0')}</span><span class="label">שניות</span></div>
       `;
     }
 
