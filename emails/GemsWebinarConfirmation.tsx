@@ -24,7 +24,7 @@ const fontFamily =
 
 export const GemsWebinarConfirmation = ({
   firstName = "חבר/ה",
-  youtubeUrl = "https://youtube.com/live/PLACEHOLDER",
+  youtubeUrl = "https://youtube.com/live/y8xEvEEoVAo",
 }: GemsWebinarConfirmationProps) => (
   <Html dir="rtl" lang="he">
     <Head>
