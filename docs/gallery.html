@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>גלריית עיצובים — טפסי הרשמה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Assistant', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #2d3436;
+      direction: rtl;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      overflow-x: auto;
+    }
+
+    .nav a {
+      padding: 14px 18px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      color: #636e72;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: #0D7377;
+      border-bottom-color: #0D7377;
+    }
+
+    /* ===== SECTION WRAPPER ===== */
+    .design-section {
+      min-height: 100vh;
+      padding: 60px 20px 80px;
+      scroll-margin-top: 50px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .section-header .badge {
+      display: inline-block;
+      background: #0D7377;
+      color: white;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: #636e72;
+      line-height: 1.6;
+    }
+
+    /* ===== 1. WARM & SUPPORTIVE ===== */
+    #warm { background: #F8F6F1; }
+
+    .warm-hero {
+      background: linear-gradient(135deg, #0D7377 0%, #14919B 40%, #9CAF88 100%);
+      color: #fff;
+      padding: 40px 20px 52px;
+      text-align: center;
+      border-radius: 20px 20px 0 0;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .warm-hero h3 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .warm-hero p { font-size: 15px; opacity: 0.9; }
+
+    .warm-form {
+      background: #fff;
+      max-width: 480px;
+      margin: -20px auto 0;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 8px 32px rgba(13,115,119,0.1);
+      position: relative;
+    }
+
+    .warm-form .social { text-align: center; font-size: 14px; color: #0D7377; font-weight: 700; margin-bottom: 16px; }
+    .warm-form label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #2d3436; }
+    .warm-form .hint { font-weight: 400; color: #b2bec3; font-size: 13px; }
+    .warm-form input, .warm-form select { width: 100%; padding: 12px 14px; border: 2px solid #e8e8e8; border-radius: 12px; font-size: 15px; font-family: inherit; margin-bottom: 14px; background: #fafaf8; direction: rtl; }
+    .warm-form input:focus, .warm-form select:focus { outline: none; border-color: #14919B; box-shadow: 0 0 0 3px rgba(20,145,155,0.1); }
+    .warm-form .cta { width: 100%; padding: 14px; background: #E8734A; color: #fff; border: none; border-radius: 12px; font-size: 18px; font-weight: 800; font-family: inherit; cursor: pointer; }
+    .warm-form .trust { text-align: center; font-size: 12px; color: #b2bec3; margin-top: 10px; }
+
+    /* ===== 2. MINIMALIST ===== */
+    #minimal { background: #ffffff; }
+
+    .minimal-card {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 48px 32px;
+    }
+
+    .minimal-card h3 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    .minimal-card .sub { font-size: 15px; color: #999; margin-bottom: 32px; }
+    .minimal-card input { width: 100%; padding: 14px 0; border: none; border-bottom: 2px solid #e0e0e0; font-size: 16px; font-family: inherit; margin-bottom: 24px; background: transparent; direction: rtl; outline: none; transition: border-color 0.2s; }
+    .minimal-card input:focus { border-bottom-color: #2d3436; }
+    .minimal-card input::placeholder { color: #ccc; }
+    .minimal-card .cta { width: 100%; padding: 15px; background: #2d3436; color: #fff; border: none; border-radius: 8px; font-size: 17px; font-weight: 700; font-family: inherit; cursor: pointer; margin-top: 8px; }
+    .minimal-card .note { text-align: center; font-size: 13px; color: #ccc; margin-top: 16px; }
+
+    /* ===== 3. DARK & BOLD ===== */
+    #dark { background: #0a0a0a; color: #ffffff; }
+    #dark .section-header h2 { color: #ffffff; }
+    #dark .section-header p { color: #888; }
+    #dark .section-header .badge { background: #6c5ce7; }
+
+    .dark-card {
+      max-width: 460px;
+      margin: 0 auto;
+      background: #1a1a2e;
+      border-radius: 20px;
+      padding: 40px 32px;
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      box-shadow: 0 0 60px rgba(108, 92, 231, 0.1);
+    }
+
+    .dark-card h3 { font-size: 26px; font-weight: 800; margin-bottom: 6px; text-align: center; }
+    .dark-card .sub { font-size: 14px; color: #888; text-align: center; margin-bottom: 28px; }
+    .dark-card label { display: block; font-size: 13px; font-weight: 700; color: #aaa; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .dark-card input, .dark-card select { width: 100%; padding: 13px 14px; border: 2px solid #2d2d4e; border-radius: 10px; font-size: 15px; font-family: inherit; margin-bottom: 16px; background: #12122a; color: #fff; direction: rtl; }
+    .dark-card input:focus, .dark-card select:focus { outline: none; border-color: #6c5ce7; box-shadow: 0 0 0 3px rgba(108,92,231,0.2); }
+    .dark-card input::placeholder { color: #555; }
+    .dark-card select { color: #888; }
+    .dark-card select option { background: #1a1a2e; color: #fff; }
+    .dark-card .cta { width: 100%; padding: 15px; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 10px; font-size: 18px; font-weight: 800; font-family: inherit; cursor: pointer; }
+    .dark-card .glow-text { text-align: center; font-size: 12px; color: #6c5ce7; margin-top: 12px; }
+
+    /* ===== 4. SPLIT SCREEN ===== */
+    #split { background: #f0f4ff; }
+
+    .split-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      min-height: 480px;
+    }
+
+    .split-visual {
+      flex: 1;
+      background: linear-gradient(135deg, #0984e3, #6c5ce7);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .split-visual h3 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+    .split-visual p { font-size: 15px; opacity: 0.9; line-height: 1.7; }
+    .split-visual .features { list-style: none; margin-top: 20px; }
+    .split-visual .features li { padding: 6px 0; font-size: 15px; opacity: 0.85; }
+
+    .split-form {
+      flex: 1;
+      background: #fff;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .split-form h3 { font-size: 22px; font-weight: 800; margin-bottom: 20px; }
+    .split-form input, .split-form select { width: 100%; padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; font-family: inherit; margin-bottom: 14px; direction: rtl; background: #fafafa; }
+    .split-form input:focus, .split-form select:focus { outline: none; border-color: #0984e3; }
+    .split-form .cta { width: 100%; padding: 14px; background: #0984e3; color: #fff; border: none; border-radius: 10px; font-size: 17px; font-weight: 700; font-family: inherit; cursor: pointer; }
+
+    /* ===== 5. GLASSMORPHISM ===== */
+    #glass { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-start; }
+    #glass .section-header h2 { color: #fff; }
+    #glass .section-header p { color: rgba(255,255,255,0.8); }
+    #glass .section-header .badge { background: rgba(255,255,255,0.25); }
+
+    .glass-card {
+      max-width: 440px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      color: #fff;
+    }
+
+    .glass-card h3 { font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+    .glass-card .sub { text-align: center; font-size: 14px; opacity: 0.8; margin-bottom: 24px; }
+    .glass-card label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 5px; opacity: 0.9; }
+    .glass-card input, .glass-card select { width: 100%; padding: 13px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; font-size: 15px; font-family: inherit; margin-bottom: 14px; background: rgba(255,255,255,0.1); color: #fff; direction: rtl; }
+    .glass-card input:focus, .glass-card select:focus { outline: none; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.15); }
+    .glass-card input::placeholder { color: rgba(255,255,255,0.5); }
+    .glass-card select { color: rgba(255,255,255,0.7); }
+    .glass-card select option { background: #764ba2; color: #fff; }
+    .glass-card .cta { width: 100%; padding: 15px; background: rgba(255,255,255,0.25); color: #fff; border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; font-size: 18px; font-weight: 800; font-family: inherit; cursor: pointer; backdrop-filter: blur(4px); transition: background 0.2s; }
+    .glass-card .cta:hover { background: rgba(255,255,255,0.35); }
+    .glass-card .note { text-align: center; font-size: 12px; opacity: 0.6; margin-top: 12px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .split-container { flex-direction: column; }
+      .split-visual { padding: 32px 24px; }
+      .split-form { padding: 32px 24px; }
+      .nav a { padding: 12px 12px; font-size: 13px; }
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#warm">חם ותומך</a>
+    <a href="#minimal">מינימליסטי</a>
+    <a href="#dark">כהה ונועז</a>
+    <a href="#split">מסך מפוצל</a>
+    <a href="#glass">זכוכית</a>
+  </nav>
+
+  <!-- 1. WARM & SUPPORTIVE -->
+  <section id="warm" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 1</span>
+      <h2>חם ותומך</h2>
+      <p>גוונים חמים, טון ידידותי, הסברים ליד כל שדה. מושלם לקהל של מורים ואנשי חינוך.</p>
+    </div>
+    <div class="warm-hero">
+      <h3>סדנת Google Classroom</h3>
+      <p>למדו לנהל כיתה דיגיטלית בשעה וחצי</p>
+    </div>
+    <div class="warm-form">
+      <div class="social">🙋 הצטרפו ל-200+ מורים שכבר נרשמו</div>
+      <label>שם מלא</label>
+      <input type="text" placeholder="איך קוראים לך?">
+      <label>אימייל <span class="hint">— לשליחת תזכורות</span></label>
+      <input type="email" placeholder="example@email.com" dir="ltr">
+      <label>טלפון <span class="hint">— לתזכורת בווטסאפ</span></label>
+      <input type="tel" placeholder="050-1234567" dir="ltr">
+      <button class="cta">שמרו לי מקום! →</button>
+      <div class="trust">🔒 ללא ספאם. רק תוכן שימושי לפני הסדנה.</div>
+    </div>
+  </section>
+
+  <!-- 2. MINIMALIST -->
+  <section id="minimal" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 2</span>
+      <h2>מינימליסטי</h2>
+      <p>רק מה שצריך. רקע לבן, קווים נקיים, אפס הסחות דעת. מתאים למותגים מקצועיים.</p>
+    </div>
+    <div class="minimal-card">
+      <h3>הרשמה לסדנה</h3>
+      <p class="sub">נשאר רק למלא את הפרטים.</p>
+      <input type="text" placeholder="שם מלא">
+      <input type="email" placeholder="אימייל" dir="ltr">
+      <input type="tel" placeholder="טלפון" dir="ltr">
+      <button class="cta">להירשם</button>
+      <p class="note">לוקח 30 שניות. בלי ספאם.</p>
+    </div>
+  </section>
+
+  <!-- 3. DARK & BOLD -->
+  <section id="dark" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 3</span>
+      <h2>כהה ונועז</h2>
+      <p>מראה טכנולוגי מודרני עם אפקט זוהר. מתאים לסדנאות טכנולוגיה, קוד, או AI.</p>
+    </div>
+    <div class="dark-card">
+      <h3>הצטרפו לסדנה ⚡</h3>
+      <p class="sub">המקומות מוגבלים. אל תפספסו.</p>
+      <label>שם</label>
+      <input type="text" placeholder="השם שלך">
+      <label>אימייל</label>
+      <input type="email" placeholder="your@email.com" dir="ltr">
+      <label>ניסיון</label>
+      <select>
+        <option selected disabled>בחר/י רמה</option>
+        <option>מתחיל/ה</option>
+        <option>בינוני</option>
+        <option>מתקדם/ת</option>
+      </select>
+      <button class="cta">אני בפנים! →</button>
+      <div class="glow-text">✨ 47 מורים נרשמו היום</div>
+    </div>
+  </section>
+
+  <!-- 4. SPLIT SCREEN -->
+  <section id="split" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 4</span>
+      <h2>מסך מפוצל</h2>
+      <p>צד אחד חזותי עם תוכן, צד שני עם הטופס. מקצועי ומרשים במיוחד על מסך רחב.</p>
+    </div>
+    <div class="split-container">
+      <div class="split-visual">
+        <h3>סדנת Google Classroom למורים</h3>
+        <p>שעה וחצי שישנו לכם את הדרך שבה אתם מנהלים את הכיתה.</p>
+        <ul class="features">
+          <li>✓ יצירת כיתות ומטלות</li>
+          <li>✓ מעקב אחרי ציונים</li>
+          <li>✓ שילוב עם Google Drive</li>
+          <li>✓ טיפים למורים מנוסים</li>
+        </ul>
+      </div>
+      <div class="split-form">
+        <h3>הרשמה לסדנה</h3>
+        <input type="text" placeholder="שם מלא">
+        <input type="email" placeholder="אימייל" dir="ltr">
+        <input type="tel" placeholder="טלפון" dir="ltr">
+        <select>
+          <option selected disabled>רמת ניסיון</option>
+          <option>מתחיל/ה</option>
+          <option>בינוני</option>
+          <option>מתקדם/ת</option>
+        </select>
+        <button class="cta">שמרו לי מקום →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. GLASSMORPHISM -->
+  <section id="glass" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 5</span>
+      <h2>אפקט זכוכית</h2>
+      <p>כרטיס שקוף עם טשטוש מעל רקע צבעוני. מודרני, אלגנטי, ומרשים.</p>
+    </div>
+    <div class="glass-card">
+      <h3>הצטרפו לסדנה</h3>
+      <p class="sub">מלאו את הפרטים ונשמור לכם מקום</p>
+      <label>שם מלא</label>
+      <input type="text" placeholder="איך קוראים לך?">
+      <label>אימייל</label>
+      <input type="email" placeholder="your@email.com" dir="ltr">
+      <label>טלפון</label>
+      <input type="tel" placeholder="050-1234567" dir="ltr">
+      <button class="cta">הרשמה →</button>
+      <div class="note">🔒 הנתונים שלך בטוחים</div>
+    </div>
+  </section>
+
+  <!-- Active nav highlight -->
+  <script>
+    const sections = document.querySelectorAll('.design-section');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
