@@ -36,6 +36,7 @@ docs/
   gallery.html             — GitHub Pages copy of gallery
 n8n/
   workshop-reminders-workflow.json  — Original n8n workflow export
+  youtube-description-updater.json — Bulk update YouTube video descriptions
 ```
 
 ## Commands
@@ -117,6 +118,21 @@ All branches parallel from "New Signup" trigger:
 | `newsletter` | 🤖 טיפ AI שבועי | title, intro, tip, linkUrl, linkText |
 | `announcement` | 🎉 הודעה חשובה | title, body, ctaText, ctaUrl |
 | `plain` | הודעה מעומרי אירם | to, message |
+
+## YouTube Bulk Description Updater
+- **n8n workflow ID:** b99qy5w6WaTQ3cPZ
+- **Channel:** עומרי אירם | להיות מורה (UCJL8oq86cIJ2_qfdwcXAV_w)
+- **Credentials:** YouTube OAuth2 API (hello@omri-iram.co.il) on 4 HTTP nodes + Get Channel
+- **How to use:**
+  1. Open workflow in n8n
+  2. Edit **Config** node: set `mode`, `operation`, `text_to_add`, `batch_size`
+  3. Run with `mode: dry_run` first to preview
+  4. Switch to `mode: update` to apply
+- **Operations:** `prepend` (top), `append` (bottom), `replace` (find/replace)
+- **Safety:** `skip_if_contains` prevents double-applying, 5000 char limit check
+- **Quota:** ~50 units per video update, max ~190 videos/day (10,000 daily limit)
+- **Current limit:** First 50 videos (no pagination yet). Add pagination for 50+ videos later.
+- **Important:** Never set Hebrew text via n8n API — always type directly in n8n UI to avoid encoding corruption
 
 ## Design Gallery (8 styles)
 1. Warm & Supportive (current) — teal/sage, friendly
