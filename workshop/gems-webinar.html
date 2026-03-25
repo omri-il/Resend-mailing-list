@@ -506,8 +506,25 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
+    // ===== A/B TESTING =====
+    // Assign variant once, persist in localStorage
+    let variant = localStorage.getItem("gems_variant");
+    if (!variant) {
+      variant = Math.random() < 0.5 ? "A" : "B";
+      localStorage.setItem("gems_variant", variant);
+    }
+
+    // Apply variant differences
+    function applyVariant() {
+      if (variant === "B") {
+        // Variant B: consent unchecked by default
+        document.getElementById("consent").checked = false;
+      }
+      // Variant A: consent checked (already default in HTML)
+    }
+    document.addEventListener("DOMContentLoaded", applyVariant);
+
     // ===== MULTI-STEP FORM =====
-    // TODO: Replace with your Google Apps Script URL for the GEMS Webinar sheet
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg/exec";
 
     let formData = {};
@@ -554,6 +571,7 @@
       formData.gems_experience = gemsExperience.value;
       formData.learning_goal = learningGoal.value || "";
       formData.timestamp = new Date().toLocaleString("he-IL");
+      formData.variant = variant;
 
       try {
         await fetch(GOOGLE_SCRIPT_URL, {
