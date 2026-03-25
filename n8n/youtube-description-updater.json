@@ -1,0 +1,332 @@
+{
+  "name": "YouTube Bulk Description Updater",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a1000001-0000-0000-0000-000000000001",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-mode",
+              "name": "mode",
+              "value": "dry_run",
+              "type": "string"
+            },
+            {
+              "id": "cfg-operation",
+              "name": "operation",
+              "value": "append",
+              "type": "string"
+            },
+            {
+              "id": "cfg-text-to-add",
+              "name": "text_to_add",
+              "value": "\n\n---\nYOUR TEXT HERE",
+              "type": "string"
+            },
+            {
+              "id": "cfg-find-text",
+              "name": "find_text",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "cfg-replace-text",
+              "name": "replace_text",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "cfg-batch-size",
+              "name": "batch_size",
+              "value": "190",
+              "type": "number"
+            },
+            {
+              "id": "cfg-skip-if-contains",
+              "name": "skip_if_contains",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "cfg-telegram-token",
+              "name": "telegram_bot_token",
+              "value": "YOUR_TELEGRAM_BOT_TOKEN",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "id": "a1000001-0000-0000-0000-000000000002",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Fetch ALL videos from your YouTube channel with full snippet data\n// Handles pagination automatically (works for any channel size)\n\nconst credentialType = 'googleOAuth2Api';\n\n// Step 1: Get the uploads playlist ID for your channel\nconst channelResponse = await this.helpers.httpRequestWithAuthentication.call(\n  this,\n  credentialType,\n  {\n    method: 'GET',\n    url: 'https://www.googleapis.com/youtube/v3/channels',\n    qs: { part: 'contentDetails', mine: 'true' },\n    json: true,\n  }\n);\n\nif (!channelResponse.items || channelResponse.items.length === 0) {\n  throw new Error('No YouTube channel found for this account');\n}\n\nconst uploadsPlaylistId = channelResponse.items[0].contentDetails.relatedPlaylists.uploads;\n\n// Step 2: Get ALL video IDs from the uploads playlist (with pagination)\nconst allVideoIds = [];\nlet nextPageToken = '';\n\ndo {\n  const qs = {\n    part: 'snippet',\n    playlistId: uploadsPlaylistId,\n    maxResults: '50',\n  };\n  if (nextPageToken) qs.pageToken = nextPageToken;\n\n  const playlistResponse = await this.helpers.httpRequestWithAuthentication.call(\n    this,\n    credentialType,\n    {\n      method: 'GET',\n      url: 'https://www.googleapis.com/youtube/v3/playlistItems',\n      qs,\n      json: true,\n    }\n  );\n\n  for (const item of playlistResponse.items) {\n    allVideoIds.push(item.snippet.resourceId.videoId);\n  }\n  nextPageToken = playlistResponse.nextPageToken || '';\n} while (nextPageToken);\n\n// Step 3: Get full video details in batches of 50\nconst allVideos = [];\n\nfor (let i = 0; i < allVideoIds.length; i += 50) {\n  const batchIds = allVideoIds.slice(i, i + 50).join(',');\n\n  const videosResponse = await this.helpers.httpRequestWithAuthentication.call(\n    this,\n    credentialType,\n    {\n      method: 'GET',\n      url: 'https://www.googleapis.com/youtube/v3/videos',\n      qs: { part: 'snippet', id: batchIds },\n      json: true,\n    }\n  );\n\n  for (const video of videosResponse.items) {\n    allVideos.push({\n      json: {\n        videoId: video.id,\n        title: video.snippet.title,\n        description: video.snippet.description || '',\n        snippet: {\n          title: video.snippet.title,\n          description: video.snippet.description || '',\n          categoryId: video.snippet.categoryId,\n          tags: video.snippet.tags || [],\n          defaultLanguage: video.snippet.defaultLanguage || '',\n          defaultAudioLanguage: video.snippet.defaultAudioLanguage || '',\n        },\n      },\n    });\n  }\n}\n\nreturn allVideos;"
+      },
+      "id": "a1000001-0000-0000-0000-000000000003",
+      "name": "Fetch All Videos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "YouTube API - Omri"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Apply description modifications based on Config settings\n// Supports: append, prepend, replace\n// Safety: idempotency check, 5000 char limit\n\nconst config = $('Config').first().json;\nconst items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const video = item.json;\n  const currentDesc = video.description || '';\n  let newDesc = currentDesc;\n  let skipped = false;\n  let skipReason = '';\n\n  // Idempotency: skip if description already contains marker text\n  if (config.skip_if_contains && currentDesc.includes(config.skip_if_contains)) {\n    skipped = true;\n    skipReason = 'already contains marker text';\n  }\n\n  if (!skipped) {\n    switch (config.operation) {\n      case 'append':\n        newDesc = currentDesc + config.text_to_add;\n        break;\n      case 'prepend':\n        newDesc = config.text_to_add + currentDesc;\n        break;\n      case 'replace':\n        if (config.find_text) {\n          newDesc = currentDesc.replaceAll(config.find_text, config.replace_text);\n        }\n        break;\n    }\n\n    // YouTube description limit: 5000 characters\n    if (newDesc.length > 5000) {\n      skipped = true;\n      skipReason = `description would be ${newDesc.length} chars (limit: 5000)`;\n      newDesc = currentDesc;\n    }\n  }\n\n  results.push({\n    json: {\n      videoId: video.videoId,\n      title: video.title,\n      currentDescription: currentDesc,\n      newDescription: newDesc,\n      changed: currentDesc !== newDesc,\n      skipped,\n      skipReason,\n      snippet: {\n        ...video.snippet,\n        description: newDesc,\n      },\n    },\n  });\n}\n\nreturn results;"
+      },
+      "id": "a1000001-0000-0000-0000-000000000004",
+      "name": "Modify Descriptions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Config').item.json.mode }}",
+                    "rightValue": "dry_run",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Dry Run"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Config').item.json.mode }}",
+                    "rightValue": "update",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Update"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000001-0000-0000-0000-000000000005",
+      "name": "Dry Run?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Build a preview report for dry run mode\n\nconst items = $input.all();\nconst config = $('Config').first().json;\nconst changed = items.filter(i => i.json.changed);\nconst skipped = items.filter(i => i.json.skipped);\nconst unchanged = items.filter(i => !i.json.changed && !i.json.skipped);\n\nlet report = `<b>DRY RUN REPORT</b>\\n\\n`;\nreport += `<b>Operation:</b> ${config.operation}\\n`;\nreport += `<b>Total videos:</b> ${items.length}\\n`;\nreport += `<b>Would change:</b> ${changed.length}\\n`;\nreport += `<b>Skipped:</b> ${skipped.length}\\n`;\nreport += `<b>Unchanged:</b> ${unchanged.length}\\n\\n`;\n\nif (skipped.length > 0) {\n  report += `<b>--- Skipped Videos ---</b>\\n`;\n  for (const item of skipped.slice(0, 5)) {\n    report += `- ${item.json.title} (${item.json.skipReason})\\n`;\n  }\n  if (skipped.length > 5) report += `...and ${skipped.length - 5} more\\n`;\n  report += `\\n`;\n}\n\nif (changed.length > 0) {\n  report += `<b>--- First 5 Changes ---</b>\\n\\n`;\n  for (const item of changed.slice(0, 5)) {\n    const before = item.json.currentDescription.substring(0, 80);\n    const after = item.json.newDescription.substring(0, 80);\n    report += `<b>${item.json.title}</b>\\n`;\n    report += `Before: ${before}...\\n`;\n    report += `After: ${after}...\\n\\n`;\n  }\n}\n\nreport += `\\nSet mode to \"update\" and run again to apply changes.`;\n\nreturn [{ json: { report } }];"
+      },
+      "id": "a1000001-0000-0000-0000-000000000006",
+      "name": "Build Preview",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $('Config').item.json.telegram_bot_token }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: '7683390659', text: $json.report, parse_mode: 'HTML' }) }}",
+        "options": { "timeout": 10000 }
+      },
+      "id": "a1000001-0000-0000-0000-000000000007",
+      "name": "Telegram Preview",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1320, 200]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Filter to only changed videos and apply batch size limit\n\nconst config = $('Config').first().json;\nconst items = $input.all();\n\n// Filter: only videos where description actually changed\nconst changed = items.filter(i => i.json.changed);\n\n// Apply batch size limit (quota safety)\nconst batchSize = parseInt(config.batch_size) || 190;\nconst limited = changed.slice(0, batchSize);\n\n// Add progress tracking metadata\nreturn limited.map((item, index) => ({\n  json: {\n    ...item.json,\n    _index: index + 1,\n    _total: limited.length,\n    _originalTotal: changed.length,\n  },\n}));"
+      },
+      "id": "a1000001-0000-0000-0000-000000000008",
+      "name": "Filter & Limit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, -200]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "a1000001-0000-0000-0000-000000000009",
+      "name": "Loop Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1320, -200]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://www.googleapis.com/youtube/v3/videos?part=snippet",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ id: $json.videoId, snippet: { title: $json.snippet.title, description: $json.snippet.description, categoryId: $json.snippet.categoryId, tags: $json.snippet.tags || [], defaultLanguage: $json.snippet.defaultLanguage || undefined, defaultAudioLanguage: $json.snippet.defaultAudioLanguage || undefined } }) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "a1000001-0000-0000-0000-000000000010",
+      "name": "Update Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1540, -200],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "YouTube API - Omri"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "seconds"
+      },
+      "id": "a1000001-0000-0000-0000-000000000011",
+      "name": "Wait 2s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1760, -200],
+      "webhookId": "yt-wait-node-001"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Generate final summary after all updates are done\n\nconst items = $input.all();\nconst totalUpdated = items.length;\n\nconst config = $('Config').first().json;\n\nlet report = `<b>UPDATE COMPLETE</b>\\n\\n`;\nreport += `<b>Videos updated:</b> ${totalUpdated}\\n`;\nreport += `<b>Operation:</b> ${config.operation}\\n`;\nreport += `<b>Quota used:</b> ~${totalUpdated * 50 + 10} / 10,000 units\\n\\n`;\nreport += `Check YouTube Studio to verify the changes.`;\n\nreturn [{ json: { report } }];"
+      },
+      "id": "a1000001-0000-0000-0000-000000000012",
+      "name": "Done Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1540, -420]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $('Config').item.json.telegram_bot_token }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: '7683390659', text: $json.report, parse_mode: 'HTML' }) }}",
+        "options": { "timeout": 10000 }
+      },
+      "id": "a1000001-0000-0000-0000-000000000013",
+      "name": "Telegram Summary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1760, -420]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [{ "node": "Config", "type": "main", "index": 0 }]
+      ]
+    },
+    "Config": {
+      "main": [
+        [{ "node": "Fetch All Videos", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fetch All Videos": {
+      "main": [
+        [{ "node": "Modify Descriptions", "type": "main", "index": 0 }]
+      ]
+    },
+    "Modify Descriptions": {
+      "main": [
+        [{ "node": "Dry Run?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dry Run?": {
+      "main": [
+        [{ "node": "Build Preview", "type": "main", "index": 0 }],
+        [{ "node": "Filter & Limit", "type": "main", "index": 0 }]
+      ]
+    },
+    "Build Preview": {
+      "main": [
+        [{ "node": "Telegram Preview", "type": "main", "index": 0 }]
+      ]
+    },
+    "Filter & Limit": {
+      "main": [
+        [{ "node": "Loop Items", "type": "main", "index": 0 }]
+      ]
+    },
+    "Loop Items": {
+      "main": [
+        [{ "node": "Update Video", "type": "main", "index": 0 }],
+        [{ "node": "Done Summary", "type": "main", "index": 0 }]
+      ]
+    },
+    "Update Video": {
+      "main": [
+        [{ "node": "Wait 2s", "type": "main", "index": 0 }]
+      ]
+    },
+    "Wait 2s": {
+      "main": [
+        [{ "node": "Loop Items", "type": "main", "index": 0 }]
+      ]
+    },
+    "Done Summary": {
+      "main": [
+        [{ "node": "Telegram Summary", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "pinData": {},
+  "tags": [
+    { "name": "youtube" },
+    { "name": "bulk-update" }
+  ]
+}
