@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKING_URL = `http://localhost:3001/click?email=hello@omri-iram.co.il&redirect=https://omri-iram.co.il`;
 
 const { data, error } = await resend.emails.send({
-  from: "onboarding@resend.dev",
+  from: "omri@hello.omri-iram.co.il",
   to: "hello@omri-iram.co.il",
   subject: "🎯 לחצ/י על הכפתור וקבל/י הפתעה",
   html: `<div dir="rtl" style="font-family: Arial, sans-serif; text-align: right; max-width: 500px; margin: 0 auto; padding: 32px;">
