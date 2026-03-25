@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>סדנת Google Classroom — עומרי אירם</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Assistant', Arial, sans-serif;
+      background: #f0f4ff;
+      color: #1a1a2e;
+      direction: rtl;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #ffffff;
+      padding: 48px 20px 56px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.6;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .details {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      opacity: 0.85;
+    }
+
+    .detail-item span {
+      font-size: 20px;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: -32px auto 40px;
+      padding: 0 20px;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Assistant', Arial, sans-serif;
+      direction: rtl;
+      transition: border-color 0.2s;
+      background: #fafafa;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #5046e5;
+      background: #ffffff;
+    }
+
+    .field input::placeholder {
+      color: #aaa;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #5046e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Assistant', Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      background: #3d35c4;
+    }
+
+    .submit-btn:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .success-msg .checkmark {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .success-msg h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .success-msg p {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #999;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 36px 16px 44px; }
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 16px; }
+      .form-card { padding: 24px 20px; }
+      .details { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-badge">🎓 סדנה מעשית</div>
+    <h1>סדנת Google Classroom<br>למורים</h1>
+    <p>למדו לנהל כיתה דיגיטלית, ליצור מטלות, ולעקוב אחרי התקדמות התלמידים — הכל בשעה וחצי.</p>
+    <div class="details">
+      <div class="detail-item"><span>📅</span> תאריך יפורסם בקרוב</div>
+      <div class="detail-item"><span>🕐</span> שעה וחצי</div>
+      <div class="detail-item"><span>💻</span> אונליין בזום</div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="form-card">
+      <div id="form-view">
+        <h2>הרשמה לסדנה</h2>
+        <form id="signup-form">
+          <div class="field">
+            <label for="name">שם מלא</label>
+            <input type="text" id="name" name="name" placeholder="הכנס/י את השם שלך" required>
+          </div>
+          <div class="field">
+            <label for="email">אימייל</label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" dir="ltr" required>
+          </div>
+          <div class="field">
+            <label for="phone">טלפון</label>
+            <input type="tel" id="phone" name="phone" placeholder="050-1234567" dir="ltr" required>
+          </div>
+          <div class="field">
+            <label for="experience">מהו הניסיון שלך עם Google Classroom?</label>
+            <select id="experience" name="experience" required>
+              <option value="" disabled selected>בחר/י רמה</option>
+              <option value="none">אין לי ניסיון — מתחיל/ה</option>
+              <option value="basic">שימוש בסיסי — יצרתי כיתה אחת או שתיים</option>
+              <option value="intermediate">שימוש רגיל — משתמש/ת באופן שוטף</option>
+              <option value="advanced">מתקדם/ת — רוצה ללמוד טיפים חדשים</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn" id="submit-btn">הרשמה לסדנה →</button>
+        </form>
+      </div>
+
+      <div class="success-msg" id="success-view">
+        <div class="checkmark">✅</div>
+        <h3>נרשמת בהצלחה!</h3>
+        <p>תודה שנרשמת לסדנה. נשלח לך עדכונים למייל ולטלפון שהזנת.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">עומרי אירם • סדנאות AI וטכנולוגיה למורים</div>
+
+  <script>
+    // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt2xqrzjbGZf4y0Wb7ui79MT--sarY8iCe8qHHWANMmPTcaQuiKMv54nF3c0-gn-s0Cw/exec";
+
+    const form = document.getElementById("signup-form");
+    const submitBtn = document.getElementById("submit-btn");
+    const formView = document.getElementById("form-view");
+    const successView = document.getElementById("success-view");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "שולח...";
+
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        experience: document.getElementById("experience").value,
+        timestamp: new Date().toLocaleString("he-IL"),
+      };
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        formView.style.display = "none";
+        successView.style.display = "block";
+      } catch (err) {
+        alert("שגיאה בשליחה. נסה/י שוב.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "הרשמה לסדנה →";
+      }
+    });
+  </script>
+</body>
+</html>
