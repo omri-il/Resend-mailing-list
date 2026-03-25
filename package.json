@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "npx react-email dev --dir emails --port 3333",
     "send": "tsx src/sendEmail.ts",
+    "send:template": "tsx src/sendTemplate.ts",
     "quick": "tsx src/quickSend.ts",
+    "auto": "tsx src/automation.ts",
+    "send:auto": "tsx src/sendAutoEmail.ts",
     "webhook": "tsx src/webhook.ts",
     "typecheck": "tsc --noEmit"
   },

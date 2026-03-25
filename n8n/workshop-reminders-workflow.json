@@ -1,0 +1,255 @@
+{
+  "name": "Workshop Reminders - Google Classroom",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1yiAkvd1WGbD1JRYdkNM7wcEjDbfBumPOQTw2M439ncU",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "הרשמות",
+          "mode": "name"
+        },
+        "event": "newRow"
+      },
+      "id": "trigger-sheets",
+      "name": "New Signup",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ from: 'onboarding@resend.dev', to: $json['אימייל'], subject: '🎓 נרשמת בהצלחה לסדנת Google Classroom!', html: '<div dir=\"rtl\" style=\"font-family: Arial, sans-serif; text-align: right; max-width: 500px; margin: 0 auto; padding: 32px;\"><h2 style=\"color: #1a1a2e;\">שלום ' + $json['שם'] + '! 👋</h2><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">שמחים שנרשמת לסדנת Google Classroom למורים. נשלח לך תזכורות לפני הסדנה.</p><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">בינתיים, אם יש שאלות — פשוט תענה/י על המייל הזה.</p><p style=\"font-size: 14px; color: #999; margin-top: 24px;\">עומרי אירם • סדנאות AI וטכנולוגיה למורים</p></div>' }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "send-welcome",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 7,
+        "unit": "days"
+      },
+      "id": "wait-7-days",
+      "name": "Wait 7 Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ from: 'onboarding@resend.dev', to: $json['אימייל'], subject: '📅 תזכורת: הסדנה בעוד שבוע!', html: '<div dir=\"rtl\" style=\"font-family: Arial, sans-serif; text-align: right; max-width: 500px; margin: 0 auto; padding: 32px;\"><h2 style=\"color: #1a1a2e;\">היי ' + $json['שם'] + ',</h2><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">רצינו להזכיר לך שסדנת Google Classroom מתקרבת! 🎓</p><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">הסדנה תתקיים בעוד שבוע. ודא/י שיש לך חשבון Google מוכן.</p><p style=\"font-size: 14px; color: #999; margin-top: 24px;\">עומרי אירם</p></div>' }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "send-reminder-1",
+      "name": "Reminder: 1 Week Before",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 6,
+        "unit": "days"
+      },
+      "id": "wait-6-days",
+      "name": "Wait 6 Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ from: 'onboarding@resend.dev', to: $json['אימייל'], subject: '⏰ הסדנה מחר! הנה מה שצריך לדעת', html: '<div dir=\"rtl\" style=\"font-family: Arial, sans-serif; text-align: right; max-width: 500px; margin: 0 auto; padding: 32px;\"><h2 style=\"color: #1a1a2e;\">היי ' + $json['שם'] + ',</h2><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">הסדנה מחר! 🎉</p><p style=\"font-size: 16px; line-height: 1.7; color: #444;\"><strong>מה להכין:</strong></p><ul style=\"font-size: 16px; line-height: 2; color: #444; text-align: right;\"><li>מחשב עם חיבור לאינטרנט</li><li>חשבון Google פעיל</li><li>כוס קפה ☕</li></ul><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">קישור לזום יישלח מחר לפני תחילת הסדנה.</p><p style=\"font-size: 14px; color: #999; margin-top: 24px;\">עומרי אירם</p></div>' }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "send-reminder-2",
+      "name": "Reminder: Day Before",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "days"
+      },
+      "id": "wait-1-day",
+      "name": "Wait Until Start",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1320, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ from: 'onboarding@resend.dev', to: $json['אימייל'], subject: '🚀 מתחילים עכשיו! הסדנה מתחילה', html: '<div dir=\"rtl\" style=\"font-family: Arial, sans-serif; text-align: right; max-width: 500px; margin: 0 auto; padding: 32px;\"><h2 style=\"color: #1a1a2e;\">היי ' + $json['שם'] + ', מתחילים! 🚀</h2><p style=\"font-size: 16px; line-height: 1.7; color: #444;\">הסדנה מתחילה עכשיו! לחצ/י על הקישור להצטרף:</p><p style=\"text-align: center; margin: 24px 0;\"><a href=\"https://zoom.us/j/PLACEHOLDER\" style=\"background: #5046e5; color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px;\">להצטרף לזום →</a></p><p style=\"font-size: 14px; color: #999; margin-top: 24px;\">נתראה בפנים! עומרי אירם</p></div>' }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "send-start",
+      "name": "Send: Starting Now!",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1540, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Resend API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "New Signup": {
+      "main": [
+        [
+          {
+            "node": "Send Welcome Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Welcome Email": {
+      "main": [
+        [
+          {
+            "node": "Wait 7 Days",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 7 Days": {
+      "main": [
+        [
+          {
+            "node": "Reminder: 1 Week Before",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reminder: 1 Week Before": {
+      "main": [
+        [
+          {
+            "node": "Wait 6 Days",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 6 Days": {
+      "main": [
+        [
+          {
+            "node": "Reminder: Day Before",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reminder: Day Before": {
+      "main": [
+        [
+          {
+            "node": "Wait Until Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Until Start": {
+      "main": [
+        [
+          {
+            "node": "Send: Starting Now!",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "workshop"
+    },
+    {
+      "name": "resend"
+    }
+  ]
+}
