@@ -233,11 +233,145 @@
     .glass-card .cta:hover { background: rgba(255,255,255,0.35); }
     .glass-card .note { text-align: center; font-size: 12px; opacity: 0.6; margin-top: 12px; }
 
+    /* ===== 6. VSL TOP ===== */
+    #vsl-top { background: #F8F6F1; }
+
+    .vsl-top-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .vsl-top-wrap .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .vsl-top-wrap .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .vsl-top-form {
+      background: #fff;
+      border-radius: 0 0 16px 16px;
+      padding: 28px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+
+    .vsl-top-form h3 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 4px; color: #0D7377; }
+    .vsl-top-form .sub { text-align: center; font-size: 14px; color: #999; margin-bottom: 20px; }
+    .vsl-top-form input { width: 100%; padding: 12px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 15px; font-family: inherit; margin-bottom: 12px; direction: rtl; background: #fafaf8; }
+    .vsl-top-form input:focus { outline: none; border-color: #14919B; }
+    .vsl-top-form .cta { width: 100%; padding: 14px; background: #E8734A; color: #fff; border: none; border-radius: 10px; font-size: 18px; font-weight: 800; font-family: inherit; cursor: pointer; }
+    .vsl-top-form .trust { text-align: center; font-size: 12px; color: #b2bec3; margin-top: 10px; }
+
+    /* ===== 7. VSL SPLIT ===== */
+    #vsl-split { background: #ffffff; }
+
+    .vsl-split-container {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      min-height: 420px;
+    }
+
+    .vsl-split-video {
+      flex: 1.2;
+      background: #000;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .vsl-split-video iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      border: none;
+    }
+
+    .vsl-split-form {
+      flex: 0.8;
+      background: #fafafa;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .vsl-split-form h3 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .vsl-split-form .sub { font-size: 14px; color: #999; margin-bottom: 20px; }
+    .vsl-split-form input, .vsl-split-form select { width: 100%; padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; font-family: inherit; margin-bottom: 12px; direction: rtl; background: #fff; }
+    .vsl-split-form input:focus, .vsl-split-form select:focus { outline: none; border-color: #e74c3c; }
+    .vsl-split-form .cta { width: 100%; padding: 14px; background: #e74c3c; color: #fff; border: none; border-radius: 10px; font-size: 17px; font-weight: 800; font-family: inherit; cursor: pointer; }
+    .vsl-split-form .note { font-size: 12px; color: #b2bec3; text-align: center; margin-top: 10px; }
+
+    /* ===== 8. VSL HERO BG ===== */
+    #vsl-hero { background: #0a0a0a; color: #fff; position: relative; overflow: hidden; }
+    #vsl-hero .section-header h2 { color: #fff; }
+    #vsl-hero .section-header p { color: #888; }
+    #vsl-hero .section-header .badge { background: #e74c3c; }
+
+    .vsl-hero-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .vsl-hero-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 0 60px rgba(231, 76, 60, 0.15);
+    }
+
+    .vsl-hero-video iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .vsl-hero-form {
+      max-width: 440px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .vsl-hero-form h3 { font-size: 22px; font-weight: 800; margin-bottom: 16px; }
+    .vsl-hero-form .fields { display: flex; gap: 10px; margin-bottom: 12px; }
+    .vsl-hero-form .fields input { flex: 1; padding: 13px 14px; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; font-size: 15px; font-family: inherit; background: rgba(255,255,255,0.08); color: #fff; direction: rtl; }
+    .vsl-hero-form .fields input:focus { outline: none; border-color: #e74c3c; }
+    .vsl-hero-form .fields input::placeholder { color: rgba(255,255,255,0.4); }
+    .vsl-hero-form .cta { width: 100%; padding: 15px; background: #e74c3c; color: #fff; border: none; border-radius: 10px; font-size: 18px; font-weight: 800; font-family: inherit; cursor: pointer; }
+    .vsl-hero-form .note { font-size: 12px; color: #666; margin-top: 10px; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
       .split-container { flex-direction: column; }
       .split-visual { padding: 32px 24px; }
       .split-form { padding: 32px 24px; }
+      .vsl-split-container { flex-direction: column; }
+      .vsl-split-video iframe { min-height: 220px; }
+      .vsl-split-form { padding: 28px 20px; }
+      .vsl-hero-form .fields { flex-direction: column; }
       .nav a { padding: 12px 12px; font-size: 13px; }
     }
 
@@ -253,6 +387,9 @@
     <a href="#dark">כהה ונועז</a>
     <a href="#split">מסך מפוצל</a>
     <a href="#glass">זכוכית</a>
+    <a href="#vsl-top">VSL למעלה</a>
+    <a href="#vsl-split">VSL מפוצל</a>
+    <a href="#vsl-hero">VSL רקע</a>
   </nav>
 
   <!-- 1. WARM & SUPPORTIVE -->
@@ -375,6 +512,80 @@
       <input type="tel" placeholder="050-1234567" dir="ltr">
       <button class="cta">הרשמה →</button>
       <div class="note">🔒 הנתונים שלך בטוחים</div>
+    </div>
+  </section>
+
+  <!-- 6. VSL - VIDEO ON TOP -->
+  <section id="vsl-top" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 6</span>
+      <h2>VSL — וידאו למעלה</h2>
+      <p>הסרטון בראש העמוד מושך תשומת לב, הטופס מתחתיו תופס את ההרשמה. הפורמט הנפוץ ביותר.</p>
+    </div>
+    <div class="vsl-top-wrap">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+      </div>
+      <div class="vsl-top-form">
+        <h3>נשמע מעניין? הצטרפו!</h3>
+        <p class="sub">צפו בסרטון ואז מלאו את הפרטים למטה</p>
+        <input type="text" placeholder="שם מלא">
+        <input type="email" placeholder="אימייל" dir="ltr">
+        <input type="tel" placeholder="טלפון" dir="ltr">
+        <button class="cta">שמרו לי מקום! →</button>
+        <div class="trust">🔒 ללא ספאם. רק עדכונים חשובים.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. VSL - SPLIT SCREEN -->
+  <section id="vsl-split" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 7</span>
+      <h2>VSL — מסך מפוצל</h2>
+      <p>הסרטון בצד אחד, הטופס בצד השני. הצופה רואה את שניהם ביחד — אפקטיבי מאוד.</p>
+    </div>
+    <div class="vsl-split-container">
+      <div class="vsl-split-video">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+      </div>
+      <div class="vsl-split-form">
+        <h3>הצטרפו עכשיו</h3>
+        <p class="sub">צפו בסרטון ונרשמו במקביל</p>
+        <input type="text" placeholder="שם מלא">
+        <input type="email" placeholder="אימייל" dir="ltr">
+        <select>
+          <option selected disabled>רמת ניסיון</option>
+          <option>מתחיל/ה</option>
+          <option>בינוני</option>
+          <option>מתקדם/ת</option>
+        </select>
+        <button class="cta">אני רוצה להצטרף! →</button>
+        <div class="note">🙋 כבר 200+ מורים נרשמו</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. VSL - HERO BACKGROUND -->
+  <section id="vsl-hero" class="design-section">
+    <div class="section-header">
+      <span class="badge">סגנון 8</span>
+      <h2>VSL — וידאו כרקע</h2>
+      <p>סרטון גדול במרכז, טופס קומפקטי מתחתיו. מראה דרמטי וממוקד בתוכן.</p>
+    </div>
+    <div class="vsl-hero-wrap">
+      <div class="vsl-hero-video">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+      </div>
+      <div class="vsl-hero-form">
+        <h3>מוכנים להתחיל? הירשמו עכשיו</h3>
+        <div class="fields">
+          <input type="text" placeholder="שם מלא">
+          <input type="email" placeholder="אימייל" dir="ltr">
+        </div>
+        <button class="cta">להצטרף לסדנה בחינם →</button>
+        <div class="note">לוקח 10 שניות. ללא כרטיס אשראי.</div>
+      </div>
     </div>
   </section>
 
