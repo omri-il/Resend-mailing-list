@@ -32,7 +32,7 @@ async function main() {
     console.log("  --template    Template name (required)");
     console.log("  --to          Recipient email (default: hello@omri-iram.co.il)");
     console.log("  --subject     Override default subject");
-    console.log("  --from        Sender address (default: omri@hello.omri-iram.co.il)");
+    console.log("  --from        Sender address (default: omri@mail.omri-iram.co.il)");
     console.log("  Any other --key value pairs are passed as template props.\n");
     return;
   }
@@ -47,7 +47,7 @@ async function main() {
   }
 
   const to = args.to || "hello@omri-iram.co.il";
-  const from = args.from || "omri@hello.omri-iram.co.il";
+  const from = args.from || "omri@mail.omri-iram.co.il";
   const subject = args.subject || entry.defaultSubject;
 
   // Everything except meta flags becomes a template prop

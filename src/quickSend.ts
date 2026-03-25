@@ -4,7 +4,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const { data, error } = await resend.emails.send({
-  from: "omri@hello.omri-iram.co.il",
+  from: "omri@mail.omri-iram.co.il",
   to: "hello@omri-iram.co.il",
   subject: "היי, זה עובד!",
   html: `<div dir="rtl" style="font-family: Arial, sans-serif; text-align: right;">

@@ -22,7 +22,7 @@ app.get("/click", async (req, res) => {
 
   // 2. Send the second email
   const { data, error } = await resend.emails.send({
-    from: "omri@hello.omri-iram.co.il",
+    from: "omri@mail.omri-iram.co.il",
     to: email,
     subject: "שמחים שלחצת! הנה המשך 🎁",
     html: `<div dir="rtl" style="font-family: Arial, sans-serif; text-align: right; max-width: 500px; margin: 0 auto; padding: 32px;">
