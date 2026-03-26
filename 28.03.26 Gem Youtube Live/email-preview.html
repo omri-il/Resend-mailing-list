@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Preview — GEMS Webinar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Assistant', Arial, sans-serif; background: #1a1a2e; color: #fff; direction: rtl; }
+    .page-header { text-align: center; padding: 32px 20px 8px; }
+    .page-header h1 { font-size: 28px; color: #0D7377; margin-bottom: 4px; }
+    .page-header p { font-size: 15px; color: #636e72; }
+    .nav { display: flex; justify-content: center; gap: 10px; padding: 20px 20px 8px; flex-wrap: wrap; }
+    .nav button {
+      padding: 10px 18px; border: 2px solid #0D7377; border-radius: 10px;
+      background: transparent; color: #0D7377; font-family: 'Assistant', sans-serif;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .nav button.active, .nav button:hover { background: #0D7377; color: #fff; }
+    .preview-container { max-width: 700px; margin: 0 auto 48px; padding: 0 20px; }
+    .email-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 4px; flex-wrap: wrap; gap: 8px;
+    }
+    .email-label { font-size: 13px; color: #636e72; }
+    .email-subject { font-size: 13px; color: #0D7377; font-weight: 700; direction: rtl; text-align: left; }
+    .email-frame { border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .email-content { display: none; }
+    .email-content.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h1>תצוגה מקדימה — אימיילים</h1>
+    <p>GEMS Webinar · ראשון 29 במרץ 2026 · 20:00</p>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="show(0)">1 · אישור הרשמה</button>
+    <button onclick="show(1)">2 · תזכורת שישי בוקר</button>
+    <button onclick="show(2)">3 · תזכורת שישי אחה"צ</button>
+    <button onclick="show(3)">4 · ההקלטה מוכנה</button>
+  </div>
+
+  <div class="preview-container">
+    <div class="email-meta">
+      <span class="email-label" id="email-label">אימייל 1 מתוך 4 — נשלח מיד אחרי הרשמה</span>
+      <span class="email-subject" id="email-subject">נושא: נרשמת בהצלחה! וובינר Gemini Gems בחינוך 🎓</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         EMAIL 1: Confirmation (immediate)
+         ═══════════════════════════════════════════ -->
+    <div class="email-content active" id="email-0">
+      <div class="email-frame">
+        <div dir="rtl" style="font-family:'Assistant',Arial,sans-serif;background:#f0fafa;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;direction:rtl;">
+
+            <!-- Header -->
+            <div style="text-align:center;padding:20px 0;">
+              <h1 style="color:#0D7377;font-size:28px;font-weight:700;margin:0;font-family:'Assistant',Arial,sans-serif;">עומרי אירם</h1>
+            </div>
+
+            <!-- Content card -->
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#0D7377;font-size:24px;font-weight:700;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                שלום, עומרי! 🎉
+              </h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                נרשמת בהצלחה לוובינר <strong>Gemini Gems בחינוך</strong>!
+              </p>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                בשידור החי נלמד איך לבנות צ'אטבוטים חינוכיים חכמים לתלמידים
+                בעזרת Gemini Gems — בצורה פשוטה ומהירה.
+              </p>
+
+              <!-- Event details card -->
+              <div style="background:#f0fafa;border:2px solid #d0eded;border-radius:10px;padding:20px;margin-top:16px;">
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 6px 0;line-height:24px;">📅 ראשון, 29 במרץ 2026</p>
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 6px 0;line-height:24px;">🕗 20:00 — 21:00</p>
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0;line-height:24px;">▶️ שידור חי ביוטיוב</p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align:center;padding:24px 0 8px;">
+              <a href="https://youtube.com/live/y8xEvEEoVAo" style="background:#0D7377;border-radius:10px;color:#fff;font-size:18px;font-weight:700;text-decoration:none;padding:14px 36px;display:inline-block;font-family:'Assistant',Arial,sans-serif;">
+                לצפייה בשידור החי ▶️
+              </a>
+            </div>
+
+            <!-- Note -->
+            <p style="font-size:14px;color:#636e72;text-align:center;font-family:'Assistant',Arial,sans-serif;padding:0 20px;margin:8px 0 0;">
+              💡 לא תוכלו להגיע? אין בעיה! השיעור יוקלט ויישלח לכל הנרשמים אחרי השידור.
+            </p>
+
+            <hr style="border:none;border-top:1px solid #e6e6e6;margin:24px 0;">
+
+            <!-- Footer -->
+            <div style="text-align:center;padding:0 20px;">
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0 0 8px 0;">
+                קיבלת את המייל הזה כי נרשמת לוובינר Gemini Gems בחינוך של עומרי אירם.
+              </p>
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                <a href="#" style="color:#8c8c8c;text-decoration:underline;">להסרה מרשימת התפוצה</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         EMAIL 2: Friday Morning (09:00)
+         ═══════════════════════════════════════════ -->
+    <div class="email-content" id="email-1">
+      <div class="email-frame">
+        <div dir="rtl" style="font-family:'Assistant',Arial,sans-serif;background:#f0fafa;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;direction:rtl;">
+
+            <!-- Header -->
+            <div style="text-align:center;padding:20px 0;">
+              <h1 style="color:#0D7377;font-size:28px;font-weight:700;margin:0;font-family:'Assistant',Arial,sans-serif;">עומרי אירם</h1>
+            </div>
+
+            <!-- Content card -->
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#0D7377;font-size:24px;font-weight:700;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                היי, עומרי! מחר זה קורה 🎓
+              </h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                מחר בערב, ראשון 29 במרץ ב-20:00, נפגשים לשידור חי על
+                <strong>Gemini Gems בחינוך</strong>.
+              </p>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                כדי שתוכלו להכי להפיק מהשידור — לפני שמגיעים, כנסו ל-
+                <strong>gemini.google.com</strong> וחפשו את כפתור <strong>Gems</strong> בתפריט הצד.
+                <br>זה הכלי שנעבוד איתו בשידור. רק לראות שיש לכם גישה — זה מספיק.
+              </p>
+
+              <!-- Prep tip -->
+              <div style="background:#fffbea;border:2px solid #f6d860;border-radius:10px;padding:20px;margin-bottom:16px;">
+                <p style="font-size:15px;font-weight:700;color:#856404;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 8px 0;">🛠️ הכנה של 2 דקות</p>
+                <p style="font-size:15px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                  1. כנסו ל-gemini.google.com<br>
+                  2. לחצו על <strong>Gems</strong> בתפריט הצד שמאל<br>
+                  3. ראיתם? מצוין — מוכנים לשידור!
+                </p>
+              </div>
+
+              <!-- Event details -->
+              <div style="background:#f0fafa;border:2px solid #d0eded;border-radius:10px;padding:20px;margin-top:8px;">
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 6px 0;line-height:24px;">📅 מחר — ראשון, 29 במרץ 2026</p>
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 6px 0;line-height:24px;">🕗 20:00 — 21:00</p>
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0;line-height:24px;">▶️ שידור חי ביוטיוב</p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align:center;padding:24px 0 8px;">
+              <a href="https://youtube.com/live/y8xEvEEoVAo" style="background:#0D7377;border-radius:10px;color:#fff;font-size:18px;font-weight:700;text-decoration:none;padding:14px 36px;display:inline-block;font-family:'Assistant',Arial,sans-serif;">
+                לשמור ביומן ▶️
+              </a>
+            </div>
+
+            <!-- Note -->
+            <p style="font-size:15px;color:#636e72;text-align:center;font-family:'Assistant',Arial,sans-serif;padding:0 20px;margin:8px 0 0;">
+              שבת שלום — ונתראה מחר בערב! 🌟
+            </p>
+
+            <hr style="border:none;border-top:1px solid #e6e6e6;margin:24px 0;">
+
+            <!-- Footer -->
+            <div style="text-align:center;padding:0 20px;">
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0 0 8px 0;">
+                קיבלת את המייל הזה כי נרשמת לוובינר Gemini Gems בחינוך של עומרי אירם.
+              </p>
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                <a href="#" style="color:#8c8c8c;text-decoration:underline;">להסרה מרשימת התפוצה</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         EMAIL 3: Friday Afternoon (16:00 — last before Shabbat)
+         ═══════════════════════════════════════════ -->
+    <div class="email-content" id="email-2">
+      <div class="email-frame">
+        <div dir="rtl" style="font-family:'Assistant',Arial,sans-serif;background:#f0fafa;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;direction:rtl;">
+
+            <!-- Header -->
+            <div style="text-align:center;padding:20px 0;">
+              <h1 style="color:#0D7377;font-size:28px;font-weight:700;margin:0;font-family:'Assistant',Arial,sans-serif;">עומרי אירם</h1>
+            </div>
+
+            <!-- Content card -->
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#0D7377;font-size:24px;font-weight:700;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                עומרי, מחר זה קורה! 🚀
+              </h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                מחר בערב, <strong>ראשון 29 במרץ ב-20:00</strong>, השידור החי על
+                <strong>Gemini Gems בחינוך</strong> מתחיל.
+              </p>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                אני מחכה לכם שם — נבנה ביחד צ'אטבוט חינוכי שלם, צעד אחר צעד, בשידור חי.
+              </p>
+
+              <!-- Urgency box -->
+              <div style="background:#fff3f0;border:2px solid #E8734A;border-radius:10px;padding:16px 20px;margin-bottom:16px;">
+                <p style="font-size:16px;color:#c0392b;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                  ⏰ <strong>מחר ב-20:00</strong> — שמרו את הלינק הזה
+                </p>
+              </div>
+
+              <!-- Event details -->
+              <div style="background:#f0fafa;border:2px solid #d0eded;border-radius:10px;padding:20px;margin-top:8px;">
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 6px 0;line-height:24px;">📅 מחר — ראשון, 29 במרץ 2026</p>
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 6px 0;line-height:24px;">🕗 20:00 — 21:00</p>
+                <p style="font-size:15px;font-weight:700;color:#2d3436;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0;line-height:24px;">▶️ שידור חי ביוטיוב</p>
+              </div>
+            </div>
+
+            <!-- CTA (orange — urgency) -->
+            <div style="text-align:center;padding:24px 0 8px;">
+              <a href="https://youtube.com/live/y8xEvEEoVAo" style="background:#E8734A;border-radius:10px;color:#fff;font-size:18px;font-weight:700;text-decoration:none;padding:14px 36px;display:inline-block;font-family:'Assistant',Arial,sans-serif;">
+                לשידור החי מחר ▶️
+              </a>
+            </div>
+
+            <!-- Note -->
+            <p style="font-size:15px;color:#636e72;text-align:center;font-family:'Assistant',Arial,sans-serif;padding:0 20px;margin:8px 0 0;">
+              שבת שלום — ונתראה מחר בערב! 🌙
+            </p>
+
+            <hr style="border:none;border-top:1px solid #e6e6e6;margin:24px 0;">
+
+            <!-- Footer -->
+            <div style="text-align:center;padding:0 20px;">
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0 0 8px 0;">
+                קיבלת את המייל הזה כי נרשמת לוובינר Gemini Gems בחינוך של עומרי אירם.
+              </p>
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                <a href="#" style="color:#8c8c8c;text-decoration:underline;">להסרה מרשימת התפוצה</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         EMAIL 4: Recording (Saturday 22:00)
+         ═══════════════════════════════════════════ -->
+    <div class="email-content" id="email-3">
+      <div class="email-frame">
+        <div dir="rtl" style="font-family:'Assistant',Arial,sans-serif;background:#f0fafa;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;direction:rtl;">
+
+            <!-- Header -->
+            <div style="text-align:center;padding:20px 0;">
+              <h1 style="color:#0D7377;font-size:28px;font-weight:700;margin:0;font-family:'Assistant',Arial,sans-serif;">עומרי אירם</h1>
+            </div>
+
+            <!-- Content card -->
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#0D7377;font-size:24px;font-weight:700;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                היי, עומרי! ההקלטה מוכנה 🎬
+              </h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                תודה לכל מי שהצטרף לשידור החי — הייתם מדהימים!
+              </p>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 16px 0;">
+                למי שלא הצליח להגיע — אין בעיה. ההקלטה של הוובינר
+                <strong>Gemini Gems בחינוך</strong> מחכה לכם עכשיו ביוטיוב.
+              </p>
+
+              <!-- Recap card -->
+              <div style="background:#f0fafa;border:2px solid #d0eded;border-radius:10px;padding:20px;margin-top:8px;">
+                <p style="font-size:15px;font-weight:700;color:#0D7377;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0 0 10px 0;">📚 מה תמצאו בהקלטה</p>
+                <p style="font-size:15px;line-height:28px;color:#4a4a68;text-align:right;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                  ✅ מה זה Gemini Gems ואיך הוא עובד<br>
+                  ✅ איך לבנות Gem חינוכי צעד אחר צעד<br>
+                  ✅ דוגמאות מעשיות לשימוש עם תלמידים<br>
+                  ✅ טיפים לפרומפטינג אפקטיבי
+                </p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align:center;padding:24px 0 8px;">
+              <a href="https://youtube.com/live/y8xEvEEoVAo" style="background:#0D7377;border-radius:10px;color:#fff;font-size:18px;font-weight:700;text-decoration:none;padding:14px 36px;display:inline-block;font-family:'Assistant',Arial,sans-serif;">
+                לצפייה בהקלטה ▶️
+              </a>
+            </div>
+
+            <!-- Note -->
+            <p style="font-size:14px;color:#636e72;text-align:center;font-family:'Assistant',Arial,sans-serif;padding:0 20px;margin:8px 0 0;">
+              אם הוובינר היה שימושי — שתפו עמית/ה מורה שגם יוכל להרוויח מזה 🙏
+            </p>
+
+            <hr style="border:none;border-top:1px solid #e6e6e6;margin:24px 0;">
+
+            <!-- Footer -->
+            <div style="text-align:center;padding:0 20px;">
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0 0 8px 0;">
+                קיבלת את המייל הזה כי נרשמת לוובינר Gemini Gems בחינוך של עומרי אירם.
+              </p>
+              <p style="font-size:12px;color:#8c8c8c;font-family:'Assistant',Arial,sans-serif;margin:0;">
+                <a href="#" style="color:#8c8c8c;text-decoration:underline;">להסרה מרשימת התפוצה</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /preview-container -->
+
+  <script>
+    const meta = [
+      {
+        label: 'אימייל 1 מתוך 4 — נשלח מיד אחרי הרשמה',
+        subject: 'נושא: נרשמת בהצלחה! וובינר Gemini Gems בחינוך 🎓'
+      },
+      {
+        label: 'אימייל 2 מתוך 4 — נשלח ביום שישי בבוקר (09:00)',
+        subject: 'נושא: מחר הוובינר! — הכינו את עצמכם ב-2 דקות ✨'
+      },
+      {
+        label: 'אימייל 3 מתוך 4 — נשלח ביום שישי אחה״צ (16:00, אחרון לפני שבת)',
+        subject: 'נושא: הלילה ב-20:00 — שידור חי על Gemini Gems! 🚀'
+      },
+      {
+        label: 'אימייל 4 מתוך 4 — נשלח במוצאי שבת (22:00, אחרי האירוע)',
+        subject: 'נושא: ההקלטה מוכנה — Gemini Gems בחינוך 🎬'
+      }
+    ];
+
+    function show(index) {
+      document.querySelectorAll('.email-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
+      document.getElementById('email-' + index).classList.add('active');
+      document.querySelectorAll('.nav button')[index].classList.add('active');
+      document.getElementById('email-label').textContent = meta[index].label;
+      document.getElementById('email-subject').textContent = meta[index].subject;
+    }
+  </script>
+</body>
+</html>

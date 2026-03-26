@@ -5,7 +5,7 @@
    ================================ */
 
 // ===== CONFIGURATION (CHANGE THESE FOR NEW EVENTS) =====
-const EVENT_DATE = new Date("2026-03-28T20:30:00+03:00");
+const EVENT_DATE = new Date("2026-03-29T20:00:00+03:00");
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg/exec";
 
 // ===== COUNTDOWN TIMER =====
@@ -72,54 +72,32 @@ function applyVariant() {
 }
 document.addEventListener("DOMContentLoaded", applyVariant);
 
-// ===== MULTI-STEP FORM =====
-let formData = {};
-
-function goToStep2() {
+// ===== SIGNUP FORM =====
+async function submitForm() {
   const name = document.getElementById("name");
   const email = document.getElementById("email");
   const phone = document.getElementById("phone");
   const consent = document.getElementById("consent");
+  const submitBtn = document.getElementById("submit-btn");
 
-  // Validate step 1
+  // Validate
   if (!name.value.trim()) { name.focus(); return; }
   if (!email.value.trim() || !email.validity.valid) { email.focus(); return; }
   if (!phone.value.trim()) { phone.focus(); return; }
   if (!consent.checked) { consent.focus(); return; }
 
-  trackEvent("step1_complete");
-
-  // Store data
-  formData.name = name.value.trim();
-  formData.email = email.value.trim();
-  formData.phone = phone.value.trim();
-  formData.consent = true;
-
-  // Switch to step 2
-  document.getElementById("step-1").classList.remove("active");
-  document.getElementById("step-2").classList.add("active");
-  document.getElementById("step-2").style.display = "block";
-  document.getElementById("dot-1").classList.remove("active");
-  document.getElementById("dot-1").classList.add("completed");
-  document.getElementById("dot-2").classList.add("active");
-}
-
-async function submitForm() {
-  const gemsExperience = document.getElementById("gems_experience");
-  const learningGoal = document.getElementById("learning_goal");
-
-  // Validate step 2
-  if (!gemsExperience.value) { gemsExperience.focus(); return; }
-
-  const submitBtn = document.getElementById("submit-btn");
   submitBtn.disabled = true;
   submitBtn.textContent = "שולח...";
 
-  // Complete data
-  formData.gems_experience = gemsExperience.value;
-  formData.learning_goal = learningGoal.value || "";
-  formData.timestamp = new Date().toLocaleString("he-IL");
-  formData.variant = variant;
+  const formData = {
+    name: name.value.trim(),
+    email: email.value.trim(),
+    phone: phone.value.trim(),
+    consent: true,
+    workshop_name: document.getElementById("workshop_name").value,
+    timestamp: new Date().toLocaleString("he-IL"),
+    variant: variant,
+  };
 
   try {
     await fetch(GOOGLE_SCRIPT_URL, {
@@ -130,20 +108,10 @@ async function submitForm() {
     });
 
     trackEvent("signup_complete");
-
-    // Switch to step 3 (confirmation)
-    document.getElementById("step-2").classList.remove("active");
-    document.getElementById("step-2").style.display = "none";
-    document.getElementById("step-3").style.display = "block";
-    document.getElementById("dot-2").classList.remove("active");
-    document.getElementById("dot-2").classList.add("completed");
-    document.getElementById("dot-3").classList.add("active");
-
-    // Hide step indicators
-    document.querySelector(".step-indicators").style.display = "none";
+    window.location.href = "./thank-you.html?name=" + encodeURIComponent(formData.name) + "&email=" + encodeURIComponent(formData.email);
   } catch (err) {
     alert("שגיאה בשליחה. נסו שוב.");
     submitBtn.disabled = false;
-    submitBtn.textContent = "הרשמה! 🚀";
+    submitBtn.textContent = "אני רוצה להשתתף! →";
   }
 }

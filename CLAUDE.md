@@ -2,6 +2,15 @@
 
 Hebrew RTL email system using React Email v5+ and Resend SDK, with automated workshop signup flows via n8n.
 
+## Deployment Rule
+
+**Always deploy websites and pages to the VPS at omri-iram.co.il.** After building any HTML page, landing page, or static site asset in this project, automatically upload it to the VPS:
+- Web root: `/var/www/omri-iram.co.il/`
+- Deploy with: `scp <file> root@147.79.114.195:/var/www/omri-iram.co.il/<path>`
+- Verify with: `curl -s -o /dev/null -w '%{http_code}' https://omri-iram.co.il/<path>`
+- Each event/page lives in its own subfolder (e.g. `gems-webinar/`)
+- Never ask the user to deploy manually — do it as part of building.
+
 ## Design & Conversion Guidelines
 
 Whenever building or improving any **landing page, signup form, email template, or marketing/conversion asset** in this project, always read and apply these three skill resources:
@@ -54,12 +63,13 @@ n8n/
   youtube-description-updater.json — Bulk update YouTube video descriptions
   build_gems_workflow.py           — GEMS webinar n8n workflow generator
   rebuild_emails.py                — Rebuild email nodes as Code nodes
-gems-webinar/                      — Self-contained event folder (deployed to VPS)
-  index.html                       — Multi-step signup form
-  email-preview.html               — Interactive email preview for review
+28.03.26 Gem Youtube Live/         — GEMS Webinar event folder (local + deployed to VPS as gems-webinar/)
+  index.html                       — Single-step signup form (name, email, phone, consent)
+  thank-you.html                   — Post-registration page with survey → unlocks event details
+  email-preview.html               — Interactive email preview for all 4 campaign emails
   assets/
     style.css                      — All styles (separated)
-    script.js                      — Countdown, A/B test, tracking, form logic
+    script.js                      — Countdown, form submit, redirect logic
 ```
 
 ## Web Hosting
@@ -122,7 +132,7 @@ Workshop reminders are drip emails — they don't need audiences or topics. This
 
 ### Contact Properties
 - `signup_source` — "workshop_form", "newsletter", "youtube"
-- `workshop_name` — workshop name + date in DD-MM-YYYY format (e.g., "GEMS Webinar 28-03-2026"). Always include the date because the same workshop may run multiple times.
+- `workshop_name` — workshop name + date in DD-MM-YYYY format (e.g., "GEMS Webinar 29-03-2026"). Always include the date because the same workshop may run multiple times.
 - `phone` — WhatsApp number from signup form
 
 ### Workshop Form Convention
@@ -191,22 +201,28 @@ All branches parallel from "New Signup" trigger:
 | `newsletter` | 🤖 טיפ AI שבועי | title, intro, tip, linkUrl, linkText |
 | `announcement` | 🎉 הודעה חשובה | title, body, ctaText, ctaUrl |
 | `plain` | הודעה מעומרי אירם | to, message |
-| `gems-confirmation` | נרשמת בהצלחה! וובינר Gemini Gems 🎓 | firstName, youtubeUrl |
+| `gems-confirmation` | נרשמת בהצלחה! וובינר Gemini Gems בחינוך 🎓 | firstName, youtubeUrl |
+| `gems-friday-morning` | מחר הוובינר! — הכינו את עצמכם ב-2 דקות ✨ | firstName, youtubeUrl |
+| `gems-friday-afternoon` | מחר ב-20:00 — שידור חי על Gemini Gems! 🚀 | firstName, youtubeUrl |
+| `gems-recording` | ההקלטה מוכנה — Gemini Gems בחינוך 🎬 | firstName, youtubeUrl |
 
-## GEMS Webinar (28 March 2026)
+## GEMS Webinar (29 March 2026)
 - **Event:** YouTube Live — Gemini Gems in education
-- **Date:** Saturday, March 28, 2026, 20:30-21:30 Israel time
+- **Date:** Sunday, March 29, 2026, 20:00-21:00 Israel time
 - **YouTube Live:** https://youtube.com/live/y8xEvEEoVAo
 - **Channel:** עומרי אירם | להיות מורה (UCJL8oq86cIJ2_qfdwcXAV_w)
 - **Signup form:** https://omri-iram.co.il/gems-webinar/
+- **Thank-you page:** https://omri-iram.co.il/gems-webinar/thank-you.html
 - **Email preview:** https://omri-iram.co.il/gems-webinar/email-preview.html
-- **GitHub Pages (backup):** https://omri-il.github.io/Resend-mailing-list/gems-webinar.html
 - **Google Sheet:** 1Dpn2QTnmoEa70bO1x9Bq3iJPWVekiUlF8oWgscDv-fQ (tab: גיליון1)
 - **Apps Script:** AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg
 - **n8n workflow ID:** zNpRoSoxjw6ydoho
-- **Features:** Multi-step form (signup → survey → confirmation), A/B testing (variant in localStorage), conversion tracking (Clarity custom tags)
-- **Email schedule:** Confirmation (immediate) → Fri AM reminder (09:00) → Fri PM last reminder (16:00) → Recording (Sat 22:00)
-- **Shabbat rule:** No emails during Shabbat — last reminder Friday 16:00
+- **Local folder:** `28.03.26 Gem Youtube Live/` (deployed to VPS as `/var/www/omri-iram.co.il/gems-webinar/`)
+- **Form flow:** Single-step signup → redirect to thank-you.html?name=...&email=... → survey shown first → post-survey content revealed
+- **Survey location:** Always on thank-you.html (NOT on landing page)
+- **A/B testing:** Variant stored in `localStorage` as `gems_variant`
+- **Email schedule:** Confirmation (immediate) → Fri AM reminder (09:00) → Fri PM last reminder (16:00) → Recording (after event)
+- **Shabbat rule:** No emails during Shabbat — last reminder Friday 16:00, event is Sunday 20:00
 
 ## YouTube Bulk Description Updater
 - **n8n workflow ID:** b99qy5w6WaTQ3cPZ

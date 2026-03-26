@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>וובינר Gemini Gems בחינוך — עומרי אירם</title>
+
+  <!-- Analytics: Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w1ajcl9gof");
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Assistant', Arial, sans-serif;
+      background: #F8F6F1;
+      color: #2d3436;
+      direction: rtl;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      background: linear-gradient(150deg, #0a5c60 0%, #0D7377 45%, #14919B 100%);
+      color: #fff;
+      padding: 52px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(156,175,136,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 24px;
+      padding: 7px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      color: rgba(255,255,255,0.95);
+    }
+
+    /* WHY — the belief */
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* HOW — the mechanism */
+    .hero-how {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-event-strip {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .hero-event-strip span {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      direction: rtl;
+    }
+
+    .countdown-item {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 14px 10px 10px;
+      min-width: 66px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .countdown-item .number {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-item .label {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 4px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .countdown-expired {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffeaa7;
+    }
+
+    /* ═══ MAIN CONTAINER ═══ */
+    .container {
+      max-width: 520px;
+      margin: -44px auto 0;
+      padding: 0 20px 60px;
+    }
+
+    /* ═══ FORM CARD ═══ */
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 12px 40px rgba(13,115,119,0.13);
+      border: 1px solid rgba(13,115,119,0.07);
+      margin-bottom: 36px;
+    }
+
+    .step-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .step-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .step-dot.active { background: #0D7377; transform: scale(1.2); }
+    .step-dot.completed { background: #9CAF88; }
+
+    .form-card h2 {
+      font-size: 23px;
+      font-weight: 800;
+      color: #0D7377;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #636e72;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    .field { margin-bottom: 16px; }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #2d3436;
+    }
+
+    .field-hint { font-size: 12px; color: #b2bec3; font-weight: 400; }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Assistant', Arial, sans-serif;
+      direction: rtl;
+      background: #fafaf8;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #14919B;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(20,145,155,0.1);
+    }
+
+    .field input::placeholder { color: #b2bec3; }
+
+    .consent-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .consent-field input[type="checkbox"] {
+      width: 18px; height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: #0D7377;
+      cursor: pointer;
+    }
+
+    .consent-field label {
+      font-size: 13px;
+      color: #636e72;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: #E8734A;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 19px;
+      font-weight: 800;
+      font-family: 'Assistant', Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
+    }
+
+    .submit-btn:hover { background: #d4622e; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { background: #b2bec3; cursor: not-allowed; transform: none; }
+
+    .trust-line {
+      text-align: center;
+      margin-top: 11px;
+      font-size: 12px;
+      color: #b2bec3;
+    }
+
+    /* Confirmation step */
+    .success-msg { display: none; text-align: center; padding: 28px 16px; }
+    .success-msg .checkmark { font-size: 52px; margin-bottom: 14px; }
+    .success-msg h3 { font-size: 22px; font-weight: 800; color: #0D7377; margin-bottom: 8px; }
+    .success-msg p { font-size: 15px; color: #636e72; line-height: 1.7; }
+
+    .event-details-box {
+      background: #f0fafa;
+      border: 2px solid #d0eded;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+      text-align: right;
+    }
+
+    .event-details-box .detail-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d3436;
+    }
+
+    .event-details-box .detail-row:last-child { margin-bottom: 0; }
+
+    /* ═══ WHAT YOU GAIN section ═══ */
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0D7377;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .outcomes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .outcome-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      border-right: 4px solid #0D7377;
+    }
+
+    .outcome-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+
+    .outcome-text h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .outcome-text p {
+      font-size: 14px;
+      color: #636e72;
+      line-height: 1.5;
+    }
+
+    .outcome-text .so-that {
+      font-size: 13px;
+      color: #0D7377;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* ═══ SOCIAL PROOF ═══ */
+    .proof-strip {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .proof-numbers {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .proof-num { text-align: center; }
+
+    .proof-num .big {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0D7377;
+      display: block;
+      line-height: 1;
+    }
+
+    .proof-num .small {
+      font-size: 13px;
+      color: #636e72;
+      margin-top: 4px;
+    }
+
+    /* ═══ WHO THIS IS FOR ═══ */
+    .audience-section {
+      margin-bottom: 36px;
+    }
+
+    .audience-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .audience-yes, .audience-no {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .audience-yes { border-right: 4px solid #9CAF88; color: #2d3436; }
+    .audience-no { border-right: 4px solid #e17055; color: #636e72; }
+
+    /* ═══ AUTHORITY ═══ */
+    .authority-section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .authority-section p {
+      font-size: 15px;
+      color: #4a4a68;
+      line-height: 1.7;
+    }
+
+    .authority-section strong { color: #0D7377; }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #b2bec3;
+    }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 480px) {
+      .hero { padding: 40px 16px 68px; }
+      .hero h1 { font-size: 30px; }
+      .hero-how { font-size: 16px; }
+      .form-card { padding: 28px 20px; }
+      .countdown { gap: 7px; }
+      .countdown-item { min-width: 58px; }
+      .countdown-item .number { font-size: 24px; }
+      .proof-numbers { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HERO — WHY first, then HOW, then WHAT
+       ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-eyebrow">🎓 וובינר חינמי למורים</div>
+
+    <!-- WHY: the belief / dream outcome -->
+    <h1>המורה שמייצר כלי AI לתלמידים — הוא המורה שהם לא ישכחו</h1>
+
+    <!-- HOW: the mechanism -->
+    <p class="hero-how">
+      ג'מינאי רגיל לא זוכר מי אתם בין שיחה לשיחה — כל פעם מחדש.<br>
+      Gem הוא כמו השף האישי שלכם: כבר מכיר את הסגנון, הכיתה, והתלמידים.<br>
+      בשידור חי נבנה ביחד Gem שמסביר, שואל, ותומך בתלמידים 24/7.
+    </p>
+
+    <div class="hero-event-strip">
+      <span>📅 ראשון, 29 במרץ 2026</span>
+      <span>🕗 20:00 — 21:00</span>
+      <span>▶️ שידור חי ביוטיוב</span>
+    </div>
+
+    <div id="countdown" class="countdown"></div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       MAIN — Form + Content
+       ══════════════════════════════════════════ -->
+  <div class="container">
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <h2>שמרו לכם מקום בחינם</h2>
+      <p class="form-subtitle">תוך 30 שניות — נשלח לכם את הלינק לשידור</p>
+
+      <div class="field">
+        <label for="name">שם מלא</label>
+        <input type="text" id="name" placeholder="איך קוראים לך?" required>
+      </div>
+      <div class="field">
+        <label for="email">אימייל <span class="field-hint">— לשליחת הלינק לשידור</span></label>
+        <input type="email" id="email" placeholder="example@email.com" dir="ltr" required>
+      </div>
+      <div class="field">
+        <label for="phone">וואטסאפ <span class="field-hint">— לתזכורת לפני האירוע</span></label>
+        <input type="tel" id="phone" placeholder="050-1234567" dir="ltr" required>
+      </div>
+      <div class="consent-field">
+        <input type="checkbox" id="consent" checked required>
+        <label for="consent">אני מסכים/ה לקבל עדכונים ותוכן חינוכי מעומרי אירם. אפשר לבטל בכל עת.</label>
+      </div>
+
+      <input type="hidden" id="workshop_name" value="GEMS Webinar 29-03-2026">
+
+      <button type="button" class="submit-btn" id="submit-btn" onclick="submitForm()">אני רוצה להשתתף! →</button>
+      <div class="trust-line">🔒 ללא ספאם. רק תוכן שימושי. ניתן להסרה בכל עת.</div>
+    </div>
+
+    <!-- WHAT: Dream outcomes with "so that" -->
+    <p class="section-title">מה תצאו איתו מהשידור</p>
+    <div class="outcomes-list">
+      <div class="outcome-item">
+        <div class="outcome-icon">🤖</div>
+        <div class="outcome-text">
+          <h4>Gem עובד — שתבנו בשידור בשידור חי</h4>
+          <p>לא תיאוריה. בשידור נבנה ביחד Gem שמסביר, שואל שאלות, ונותן פידבק — בסגנון שלכם.</p>
+          <div class="so-that">← כדי שתצאו עם כלי שאפשר לשלוח לתלמידים כבר למחרת</div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-icon">⚡</div>
+        <div class="outcome-text">
+          <h4>במקום פסקה שלמה — משפט אחד</h4>
+          <p>Gem שמכיר אתכם כבר לא צריך הסברים. במקום פרומפט ארוך של 10 שורות — "צור לי שיעור פתיחה על מבנה הלב" — וזה הכל.</p>
+          <div class="so-that">← כדי שתחסכו 20-30 דקות על כל מערך שיעור</div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-icon">🎯</div>
+        <div class="outcome-text">
+          <h4>Gems שמותאמים לתלמידים שלכם — לא לכולם</h4>
+          <p>תלמיד שמתקשה, תלמיד מתקדם, כיתה ח' — כל אחד מקבל תשובה שמתאימה לו בדיוק.</p>
+          <div class="so-that">← כדי שהתלמידים יתחברו לכלי ויחזרו אליו גם ב-2 בלילה</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF numbers -->
+    <div class="proof-strip">
+      <div class="proof-numbers">
+        <div class="proof-num">
+          <span class="big">4,200+</span>
+          <span class="small">מורים בערוץ</span>
+        </div>
+        <div class="proof-num">
+          <span class="big">60+</span>
+          <span class="small">שיעורי AI שפורסמו</span>
+        </div>
+        <div class="proof-num">
+          <span class="big">חינמי</span>
+          <span class="small">100% ללא תשלום</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHO IT'S FOR — bold disqualification -->
+    <div class="audience-section">
+      <p class="section-title">הוובינר הזה בשבילך אם...</p>
+      <div class="audience-grid">
+        <div class="audience-yes">✅ אתה/את מורה שרוצה להתחיל לשלב AI בהוראה</div>
+        <div class="audience-yes">✅ ניסית Gemini אבל עדיין לא בנית Gem מאפס</div>
+        <div class="audience-yes">✅ אתה/את סקרן/ית איך AI יכול לחסוך לך זמן בכיתה</div>
+        <div class="audience-no">❌ מפתחי תוכנה שמחפשים API טכני — זה לא הוובינר הזה</div>
+        <div class="audience-no">❌ מי שכבר בנה עשרות Gems ומחפש קורס מתקדם</div>
+      </div>
+    </div>
+
+    <!-- AUTHORITY -->
+    <div class="authority-section">
+      <p>
+        <strong>עומרי אירם</strong> — מורה לביולוגיה בתל אביב, מארגן תקשוב, ומוביל קהילת <strong>מורות וברוניקה Google ישראל</strong>.
+        בשידור תראו את <strong>סינאפסה 3</strong> — ה-Gem שהוא בנה לתלמידים שלו בכיתה, ואיך תלמיד שמתקשה הגיע להשתמש בו ב-2 בלילה ושלח לו הודעה.
+        מנהל קהילה של <strong>4,200+ מורים</strong> בערוץ יוטיוב "להיות מורה", ומרצה בסדנאות AI לבתי ספר ברחבי הארץ.
+      </p>
+    </div>
+
+  </div><!-- /container -->
+
+  <div class="footer">עומרי אירם • וובינרים וסדנאות AI למורים • omri-iram.co.il</div>
+
+  <script src="./assets/script.js"></script>
+</body>
+</html>

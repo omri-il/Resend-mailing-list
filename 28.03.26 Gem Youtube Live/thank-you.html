@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>נרשמת! מה הלאה — GEMS Webinar</title>
+
+  <!-- Analytics: Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w1ajcl9gof");
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Assistant', Arial, sans-serif;
+      background: #F8F6F1;
+      color: #2d3436;
+      direction: rtl;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      background: linear-gradient(150deg, #0a5c60 0%, #0D7377 45%, #14919B 100%);
+      color: #fff;
+      padding: 52px 20px 48px;
+      text-align: center;
+    }
+
+    .hero .checkmark { font-size: 60px; margin-bottom: 16px; }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero p {
+      font-size: 17px;
+      opacity: 0.9;
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ═══ CONTAINER ═══ */
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 36px 20px 60px;
+    }
+
+    /* ═══ EVENT BOX ═══ */
+    .event-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 24px;
+      box-shadow: 0 4px 20px rgba(13,115,119,0.1);
+      border: 2px solid #d0eded;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .event-box h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0D7377;
+      margin-bottom: 14px;
+    }
+
+    .event-rows { display: flex; flex-direction: column; gap: 10px; }
+
+    .event-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #2d3436;
+    }
+
+    .event-row span { font-size: 18px; }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #E8734A;
+      color: #fff;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-size: 18px;
+      font-weight: 800;
+      font-family: 'Assistant', Arial, sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .cta-btn:hover { background: #d4622e; transform: translateY(-1px); }
+
+    /* ═══ NEXT STEPS ═══ */
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0D7377;
+      margin-bottom: 16px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .step-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .step-num {
+      background: #0D7377;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-text h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 3px;
+    }
+
+    .step-text p {
+      font-size: 14px;
+      color: #636e72;
+      line-height: 1.5;
+    }
+
+    /* ═══ PREP TASK ═══ */
+    .prep-box {
+      background: #fffbea;
+      border: 2px solid #f6d860;
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 28px;
+    }
+
+    .prep-box h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #856404;
+      margin-bottom: 12px;
+    }
+
+    .prep-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .prep-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #4a4a68;
+      font-weight: 600;
+    }
+
+    .prep-step .check { font-size: 16px; }
+
+    /* ═══ OPEN LOOP ═══ */
+    .teaser-box {
+      background: linear-gradient(135deg, #0D7377, #14919B);
+      border-radius: 16px;
+      padding: 24px 22px;
+      color: #fff;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .teaser-box h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .teaser-box p {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .teaser-box .teaser-hint {
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.15);
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    /* ═══ SHARE ═══ */
+    .share-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 28px;
+    }
+
+    .share-box h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .share-box p {
+      font-size: 14px;
+      color: #636e72;
+      margin-bottom: 16px;
+    }
+
+    .share-btn {
+      display: inline-block;
+      background: #25D366;
+      color: #fff;
+      border-radius: 10px;
+      padding: 11px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Assistant', Arial, sans-serif;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .share-btn:hover { background: #1ebe5b; }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #b2bec3;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 40px 16px 36px; }
+      .hero h1 { font-size: 26px; }
+      .hero .checkmark { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO: confirmation + immediate reward -->
+  <section class="hero">
+    <div class="checkmark">🎉</div>
+    <h1 id="hero-title">נרשמת! מקומך שמור לשידור</h1>
+    <p>תוך מספר דקות תגיע הודעת אישור לאימייל שלך עם הלינק לשידור החי</p>
+  </section>
+
+  <div class="container">
+
+    <!-- Survey — shown until submitted -->
+    <div class="event-box" id="survey-box" style="text-align:right;">
+      <h2>שאלה אחת לפני שממשיכים 🙏</h2>
+      <p style="font-size:14px; color:#636e72; margin-bottom:16px;">כדי שנוכל להתאים את התוכן בדיוק בשבילך</p>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-size:14px; font-weight:700; margin-bottom:6px; color:#2d3436;">מה רמת הניסיון שלך עם Gemini Gems?</label>
+        <select id="gems_experience" style="width:100%; padding:11px 14px; border:2px solid #e8e8e8; border-radius:10px; font-size:15px; font-family:'Assistant',Arial,sans-serif; direction:rtl; background:#fafaf8;">
+          <option value="" disabled selected>בחר/י רמה</option>
+          <option value="dont_know">לא יודע/ת מה זה</option>
+          <option value="heard">שמעתי על זה אבל לא ניסיתי</option>
+          <option value="tried">ניסיתי לבנות Gem</option>
+          <option value="regular">אני משתמש/ת ב-Gems באופן קבוע</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="display:block; font-size:14px; font-weight:700; margin-bottom:6px; color:#2d3436;">מה הכי חשוב לך ללמוד? <span style="font-weight:400; color:#b2bec3;">— לא חובה</span></label>
+        <select id="learning_goal" style="width:100%; padding:11px 14px; border:2px solid #e8e8e8; border-radius:10px; font-size:15px; font-family:'Assistant',Arial,sans-serif; direction:rtl; background:#fafaf8;">
+          <option value="" selected>בחר/י נושא</option>
+          <option value="first_gem">איך ליצור את ה-Gem הראשון שלי</option>
+          <option value="advanced">פרומפטינג מתקדם ל-Gems</option>
+          <option value="students">שימוש ב-Gems עם תלמידים</option>
+          <option value="other">אחר</option>
+        </select>
+      </div>
+
+      <button onclick="submitSurvey()" id="survey-btn" style="width:100%; padding:13px; background:#0D7377; color:#fff; border:none; border-radius:12px; font-size:17px; font-weight:800; font-family:'Assistant',Arial,sans-serif; cursor:pointer;">שלח תשובות →</button>
+    </div>
+
+    <!-- Rest of page — shown after survey submitted -->
+    <div id="post-survey" style="display:none;">
+
+    <!-- Event details + direct link -->
+    <div class="event-box" id="event-box">
+      <h2>פרטי האירוע</h2>
+      <div class="event-rows">
+        <div class="event-row"><span>📅</span> ראשון, 29 במרץ 2026</div>
+        <div class="event-row"><span>🕗</span> 20:00 — 21:00</div>
+        <div class="event-row"><span>▶️</span> שידור חי ביוטיוב — חינמי לגמרי</div>
+      </div>
+      <a href="https://youtube.com/live/y8xEvEEoVAo" class="cta-btn" target="_blank">
+        לשמור ביומן ▶️
+      </a>
+    </div>
+
+    <!-- Next steps — speed to value, hook-retain-reward -->
+    <p class="section-title">מה קורה עכשיו?</p>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>אימייל אישור בדרך אליך</h4>
+          <p>תוך כמה דקות תגיע הודעה עם הלינק לשידור ופרטי האירוע. בדקו גם בספאם אם לא מגיע.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>תזכורת ביום שישי</h4>
+          <p>נשלח תזכורת בבוקר שישי ועוד אחת בצהריים — כדי שלא תשכחו!</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>ההקלטה תחכה גם למי שלא יגיע</h4>
+          <p>לא תוכלו להגיע? אין בעיה. ההקלטה תישלח לכל הנרשמים לאחר השידור.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prep task — immediate micro-win -->
+    <div class="prep-box">
+      <h3>🛠️ הכנה של 2 דקות לפני השידור</h3>
+      <div class="prep-steps">
+        <div class="prep-step"><span class="check">1️⃣</span> כנסו ל-gemini.google.com</div>
+        <div class="prep-step"><span class="check">2️⃣</span> לחצו על Gems בתפריט הצד השמאלי</div>
+        <div class="prep-step"><span class="check">3️⃣</span> ראיתם את הממשק? מעולה — מוכנים!</div>
+      </div>
+    </div>
+
+    <!-- Open loop — anticipation for what's coming in the webinar -->
+    <div class="teaser-box">
+      <h3>מה שמחכה לכם בשידור 🔒</h3>
+      <p>
+        בשידור תראו את <strong>סינאפסה 3</strong> — ה-Gem שעומרי בנה לתלמידים שלו.
+        תלמיד אחד, שמתקשה ולא תמיד מגיע לשיעורים, שלח לו הודעה ב-2 בלילה עם ביקורת על התשובה שקיבל.
+      </p>
+      <p style="margin-top: 10px; opacity: 0.9;">
+        זה מה ש-Gem טוב עושה: הוא גורם לתלמיד לחזור — גם כשאתם לא שם.
+      </p>
+      <div class="teaser-hint">👀 תבנו את שלכם ביום ראשון ב-20:00</div>
+    </div>
+
+    <!-- Share — social proof amplification -->
+    <div class="share-box">
+      <h3>יש לכם עמית מורה שיהנה מזה?</h3>
+      <p>שתפו את הוובינר — כניסה חינמית גם להם</p>
+      <a
+        href="https://wa.me/?text=%D7%94%D7%A9%D7%AA%D7%AA%D7%A4%D7%99%20%D7%9C%D7%95%D7%95%D7%91%D7%99%D7%A0%D7%A8%20%D7%97%D7%99%D7%A0%D7%9E%D7%99%20%D7%A2%D7%9C%20Gemini%20Gems%20%D7%91%D7%97%D7%99%D7%A0%D7%95%D7%9A%20%F0%9F%8E%93%20%E2%80%94%20%D7%A9%D7%91%D7%AA%2028%20%D7%91%D7%9E%D7%A8%D7%A5%2020%3A30%20%D7%91%D7%A9%D7%99%D7%93%D7%95%D7%A8%20%D7%97%D7%99%20%D7%91%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91%20%F0%9F%91%89%20https%3A%2F%2Fomri-iram.co.il%2Fgems-webinar%2F"
+        class="share-btn"
+        target="_blank"
+      >
+        📱 שתפו בוואטסאפ
+      </a>
+    </div>
+
+  </div><!-- /post-survey -->
+
+  </div><!-- /container -->
+  <div class="footer">עומרי אירם • וובינרים וסדנאות AI למורים • omri-iram.co.il</div>
+
+  <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg/exec";
+
+    // Greet by name from URL param
+    const params = new URLSearchParams(window.location.search);
+    const firstName = (params.get("name") || "").split(" ")[0];
+    if (firstName) {
+      document.getElementById("hero-title").textContent = firstName + ", נרשמת! מקומך שמור לשידור";
+    }
+
+    async function submitSurvey() {
+      const experience = document.getElementById("gems_experience");
+      if (!experience.value) { experience.focus(); return; }
+
+      const btn = document.getElementById("survey-btn");
+      btn.disabled = true;
+      btn.textContent = "שולח...";
+
+      const data = {
+        survey_only: true,
+        email: params.get("email") || "",
+        gems_experience: experience.value,
+        learning_goal: document.getElementById("learning_goal").value || "",
+        timestamp: new Date().toLocaleString("he-IL"),
+      };
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+      } catch (e) { /* silent — don't block UX */ }
+
+      // Hide survey, show rest of page
+      document.getElementById("survey-box").style.display = "none";
+      document.getElementById("post-survey").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+
+</body>
+</html>

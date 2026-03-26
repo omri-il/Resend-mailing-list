@@ -3,6 +3,9 @@ import { Newsletter } from "../emails/Newsletter.js";
 import { Announcement } from "../emails/Announcement.js";
 import { PlainText } from "../emails/PlainText.js";
 import { GemsWebinarConfirmation } from "../emails/GemsWebinarConfirmation.js";
+import { GemsWebinarFridayMorning } from "../emails/GemsWebinarFridayMorning.js";
+import { GemsWebinarFridayAfternoon } from "../emails/GemsWebinarFridayAfternoon.js";
+import { GemsWebinarRecording } from "../emails/GemsWebinarRecording.js";
 
 interface TemplateEntry {
   component: (props: any) => React.ReactElement;
@@ -40,6 +43,24 @@ export const templates: Record<string, TemplateEntry> = {
     component: GemsWebinarConfirmation,
     defaultSubject: "נרשמת בהצלחה! וובינר Gemini Gems בחינוך 🎓",
     description: "GEMS Webinar confirmation with YouTube Live link",
+    props: ["firstName", "youtubeUrl"],
+  },
+  "gems-friday-morning": {
+    component: GemsWebinarFridayMorning,
+    defaultSubject: "מחר הוובינר! — הכינו את עצמכם ב-2 דקות ✨",
+    description: "GEMS Webinar Friday morning reminder with prep tip",
+    props: ["firstName", "youtubeUrl"],
+  },
+  "gems-friday-afternoon": {
+    component: GemsWebinarFridayAfternoon,
+    defaultSubject: "מחר ב-20:00 — שידור חי על Gemini Gems! 🚀",
+    description: "GEMS Webinar Friday afternoon last reminder (event is Sunday)",
+    props: ["firstName", "youtubeUrl"],
+  },
+  "gems-recording": {
+    component: GemsWebinarRecording,
+    defaultSubject: "ההקלטה מוכנה — Gemini Gems בחינוך 🎬",
+    description: "GEMS Webinar recording email sent after the event",
     props: ["firstName", "youtubeUrl"],
   },
 };

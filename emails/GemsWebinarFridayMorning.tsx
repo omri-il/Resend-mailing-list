@@ -14,18 +14,17 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface GemsWebinarConfirmationProps {
+interface GemsWebinarFridayMorningProps {
   firstName: string;
   youtubeUrl: string;
 }
 
-const fontFamily =
-  "'Assistant', Arial, Helvetica, Verdana, sans-serif";
+const fontFamily = "'Assistant', Arial, Helvetica, Verdana, sans-serif";
 
-export const GemsWebinarConfirmation = ({
+export const GemsWebinarFridayMorning = ({
   firstName = "חבר/ה",
   youtubeUrl = "https://youtube.com/live/y8xEvEEoVAo",
-}: GemsWebinarConfirmationProps) => (
+}: GemsWebinarFridayMorningProps) => (
   <Html dir="rtl" lang="he">
     <Head>
       <Font
@@ -39,7 +38,7 @@ export const GemsWebinarConfirmation = ({
         fontStyle="normal"
       />
     </Head>
-    <Preview>נרשמת בהצלחה לוובינר Gemini Gems בחינוך!</Preview>
+    <Preview>מחר הוובינר! — הכינו את עצמכם ב-2 דקות ✨</Preview>
     <Body style={body}>
       <Container style={container}>
         {/* Header */}
@@ -50,42 +49,53 @@ export const GemsWebinarConfirmation = ({
         {/* Main content */}
         <Section style={content}>
           <Heading as="h2" style={heading}>
-            שלום, {firstName}! 🎉
+            היי, {firstName}! מחר זה קורה 🎓
           </Heading>
           <Text style={paragraph}>
-            נרשמת בהצלחה לוובינר <strong>Gemini Gems בחינוך</strong>! 🎉
+            יובל הוא תלמיד שמתקשה. לא תמיד מגיע לשיעורים. לא תמיד מתעורר בבוקר.
           </Text>
           <Text style={paragraph}>
-            בשידור נגלה ביחד שג'מינאי רגיל לא זוכר מי אתם בין שיחה לשיחה —
-            כל פעם מחדש צריך להסביר לו מי אתם, מה הכיתה, מה הסגנון.
+            לפני כמה חודשים הוא שלח לעומרי הודעה ב-<strong>שתיים בלילה</strong>:{" "}
+            "תשמע, סינאפסה לא נתנה לי תשובה טובה."
           </Text>
           <Text style={paragraph}>
-            <strong>Gem הוא כמו השף האישי שלכם.</strong> כבר מכיר את המטבח שלכם.
-            במקום פסקה ארוכה של הוראות — "צור לי שיעור פתיחה על מבנה הלב" — וזה הכל.
+            סינאפסה הוא ה-Gem שעומרי בנה לתלמידים שלו בכיתה — עוזר למידה חינוכי שמותאם לביולוגיה.
+            יובל לא רק השתמש בו — הוא <strong>הפעיל חשיבה ביקורתית</strong> כלפי תשובת ה-AI ב-2 בלילה.
           </Text>
           <Text style={paragraph}>
-            בשידור תבנו Gem כזה מאפס, ותראו גם את <strong>סינאפסה 3</strong> —
-            ה-Gem שעומרי בנה לתלמידים שלו בכיתה.
+            מחר בשידור תראו את סינאפסה 3, ותבנו Gem כזה מאפס — בשידור חי, ביחד.
           </Text>
 
-          {/* Event details card */}
+          {/* Prep tip */}
+          <Section style={tipCard}>
+            <Text style={tipTitle}>🛠️ הכנה של 2 דקות</Text>
+            <Text style={tipText}>
+              1. כנסו ל-gemini.google.com
+              <br />
+              2. לחצו על <strong>Gems</strong> בתפריט הצד שמאל
+              <br />
+              3. ראיתם? מצוין — מוכנים לשידור!
+            </Text>
+          </Section>
+
+          {/* Event details */}
           <Section style={eventCard}>
-            <Text style={eventRow}>📅 ראשון, 29 במרץ 2026</Text>
+            <Text style={eventRow}>📅 מחר — ראשון, 29 במרץ 2026</Text>
             <Text style={eventRow}>🕗 20:00 — 21:00</Text>
             <Text style={eventRow}>▶️ שידור חי ביוטיוב</Text>
           </Section>
         </Section>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <Section style={buttonSection}>
           <Button style={button} href={youtubeUrl}>
-            לצפייה בשידור החי ▶️
+            לשמור ביומן ▶️
           </Button>
         </Section>
 
         <Section style={noteSection}>
           <Text style={noteText}>
-            💡 לא תוכלו להגיע? אין בעיה! השיעור יוקלט ויישלח לכל הנרשמים אחרי השידור.
+            שבוע טוב — ונתראה מחר בערב! 🌟
           </Text>
         </Section>
 
@@ -107,12 +117,12 @@ export const GemsWebinarConfirmation = ({
   </Html>
 );
 
-GemsWebinarConfirmation.PreviewProps = {
+GemsWebinarFridayMorning.PreviewProps = {
   firstName: "עומרי",
-  youtubeUrl: "https://youtube.com/live/example",
-} as GemsWebinarConfirmationProps;
+  youtubeUrl: "https://youtube.com/live/y8xEvEEoVAo",
+} as GemsWebinarFridayMorningProps;
 
-export default GemsWebinarConfirmation;
+export default GemsWebinarFridayMorning;
 
 /* ───── Styles ───── */
 
@@ -167,6 +177,32 @@ const paragraph: React.CSSProperties = {
   margin: "0 0 16px 0",
 };
 
+const tipCard: React.CSSProperties = {
+  backgroundColor: "#fffbea",
+  border: "2px solid #f6d860",
+  borderRadius: "10px",
+  padding: "20px",
+  marginBottom: "16px",
+};
+
+const tipTitle: React.CSSProperties = {
+  fontSize: "15px",
+  fontWeight: 700,
+  color: "#856404",
+  textAlign: "right",
+  fontFamily,
+  margin: "0 0 8px 0",
+};
+
+const tipText: React.CSSProperties = {
+  fontSize: "15px",
+  lineHeight: "26px",
+  color: "#4a4a68",
+  textAlign: "right",
+  fontFamily,
+  margin: "0",
+};
+
 const eventCard: React.CSSProperties = {
   backgroundColor: "#f0fafa",
   border: "2px solid #d0eded",
@@ -207,7 +243,7 @@ const noteSection: React.CSSProperties = {
 };
 
 const noteText: React.CSSProperties = {
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: "22px",
   color: "#636e72",
   textAlign: "center",

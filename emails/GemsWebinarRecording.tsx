@@ -14,18 +14,17 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface GemsWebinarConfirmationProps {
+interface GemsWebinarRecordingProps {
   firstName: string;
   youtubeUrl: string;
 }
 
-const fontFamily =
-  "'Assistant', Arial, Helvetica, Verdana, sans-serif";
+const fontFamily = "'Assistant', Arial, Helvetica, Verdana, sans-serif";
 
-export const GemsWebinarConfirmation = ({
+export const GemsWebinarRecording = ({
   firstName = "חבר/ה",
   youtubeUrl = "https://youtube.com/live/y8xEvEEoVAo",
-}: GemsWebinarConfirmationProps) => (
+}: GemsWebinarRecordingProps) => (
   <Html dir="rtl" lang="he">
     <Head>
       <Font
@@ -39,7 +38,7 @@ export const GemsWebinarConfirmation = ({
         fontStyle="normal"
       />
     </Head>
-    <Preview>נרשמת בהצלחה לוובינר Gemini Gems בחינוך!</Preview>
+    <Preview>ההקלטה מוכנה — Gemini Gems בחינוך 🎬</Preview>
     <Body style={body}>
       <Container style={container}>
         {/* Header */}
@@ -50,42 +49,41 @@ export const GemsWebinarConfirmation = ({
         {/* Main content */}
         <Section style={content}>
           <Heading as="h2" style={heading}>
-            שלום, {firstName}! 🎉
+            היי, {firstName}! ההקלטה מוכנה 🎬
           </Heading>
           <Text style={paragraph}>
-            נרשמת בהצלחה לוובינר <strong>Gemini Gems בחינוך</strong>! 🎉
+            תודה לכל מי שהצטרף לשידור החי — הייתם מדהימים!
           </Text>
           <Text style={paragraph}>
-            בשידור נגלה ביחד שג'מינאי רגיל לא זוכר מי אתם בין שיחה לשיחה —
-            כל פעם מחדש צריך להסביר לו מי אתם, מה הכיתה, מה הסגנון.
-          </Text>
-          <Text style={paragraph}>
-            <strong>Gem הוא כמו השף האישי שלכם.</strong> כבר מכיר את המטבח שלכם.
-            במקום פסקה ארוכה של הוראות — "צור לי שיעור פתיחה על מבנה הלב" — וזה הכל.
-          </Text>
-          <Text style={paragraph}>
-            בשידור תבנו Gem כזה מאפס, ותראו גם את <strong>סינאפסה 3</strong> —
-            ה-Gem שעומרי בנה לתלמידים שלו בכיתה.
+            למי שלא הצליח להגיע — אין בעיה. ההקלטה של הוובינר{" "}
+            <strong>Gemini Gems בחינוך</strong> מחכה לכם עכשיו ביוטיוב.
           </Text>
 
-          {/* Event details card */}
-          <Section style={eventCard}>
-            <Text style={eventRow}>📅 ראשון, 29 במרץ 2026</Text>
-            <Text style={eventRow}>🕗 20:00 — 21:00</Text>
-            <Text style={eventRow}>▶️ שידור חי ביוטיוב</Text>
+          {/* What you'll learn recap */}
+          <Section style={recapCard}>
+            <Text style={recapTitle}>📚 מה תמצאו בהקלטה</Text>
+            <Text style={recapText}>
+              ✅ מה זה Gemini Gems ואיך הוא עובד
+              <br />
+              ✅ איך לבנות Gem חינוכי צעד אחר צעד
+              <br />
+              ✅ דוגמאות מעשיות לשימוש עם תלמידים
+              <br />
+              ✅ טיפים לפרומפטינג אפקטיבי
+            </Text>
           </Section>
         </Section>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <Section style={buttonSection}>
           <Button style={button} href={youtubeUrl}>
-            לצפייה בשידור החי ▶️
+            לצפייה בהקלטה ▶️
           </Button>
         </Section>
 
         <Section style={noteSection}>
           <Text style={noteText}>
-            💡 לא תוכלו להגיע? אין בעיה! השיעור יוקלט ויישלח לכל הנרשמים אחרי השידור.
+            אם הוובינר היה שימושי — שתפו עמית/ה מורה שגם יוכל להרוויח מזה 🙏
           </Text>
         </Section>
 
@@ -107,12 +105,12 @@ export const GemsWebinarConfirmation = ({
   </Html>
 );
 
-GemsWebinarConfirmation.PreviewProps = {
+GemsWebinarRecording.PreviewProps = {
   firstName: "עומרי",
-  youtubeUrl: "https://youtube.com/live/example",
-} as GemsWebinarConfirmationProps;
+  youtubeUrl: "https://youtube.com/live/y8xEvEEoVAo",
+} as GemsWebinarRecordingProps;
 
-export default GemsWebinarConfirmation;
+export default GemsWebinarRecording;
 
 /* ───── Styles ───── */
 
@@ -167,22 +165,30 @@ const paragraph: React.CSSProperties = {
   margin: "0 0 16px 0",
 };
 
-const eventCard: React.CSSProperties = {
+const recapCard: React.CSSProperties = {
   backgroundColor: "#f0fafa",
   border: "2px solid #d0eded",
   borderRadius: "10px",
   padding: "20px",
-  marginTop: "16px",
+  marginTop: "8px",
 };
 
-const eventRow: React.CSSProperties = {
+const recapTitle: React.CSSProperties = {
   fontSize: "15px",
   fontWeight: 700,
-  color: "#2d3436",
+  color: "#0D7377",
   textAlign: "right",
   fontFamily,
-  margin: "0 0 6px 0",
-  lineHeight: "24px",
+  margin: "0 0 10px 0",
+};
+
+const recapText: React.CSSProperties = {
+  fontSize: "15px",
+  lineHeight: "28px",
+  color: "#4a4a68",
+  textAlign: "right",
+  fontFamily,
+  margin: "0",
 };
 
 const buttonSection: React.CSSProperties = {
