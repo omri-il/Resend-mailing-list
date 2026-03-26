@@ -3,7 +3,7 @@ import json, uuid, os
 def uid():
     return str(uuid.uuid4())
 
-RESEND_KEY = 're_8DyfSv6B_2hYgAPbjHchC67YdKuKkTkHp'
+RESEND_KEY = os.environ.get('RESEND_API_KEY', '')
 YT_URL = 'https://youtube.com/live/y8xEvEEoVAo'
 
 # Email HTML builder - simple RTL template
