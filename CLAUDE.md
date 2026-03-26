@@ -9,7 +9,9 @@ Hebrew RTL email system using React Email v5+ and Resend SDK, with automated wor
 - **Sending:** Resend SDK
 - **Webhooks:** Express.js
 - **Automation:** n8n (VPS at n8n.srv1038526.hstgr.cloud)
-- **Landing pages:** Static HTML, hosted on GitHub Pages
+- **Landing pages:** Static HTML, hosted on VPS at omri-iram.co.il (GitHub Pages as backup)
+- **Web root:** `/var/www/omri-iram.co.il/` on VPS
+- **Page architecture:** Self-contained folders with relative paths (copy-paste deployable)
 - **Analytics:** Microsoft Clarity (project ID: w1ajcl9gof)
 - **Runner:** tsx (no build step needed)
 
@@ -39,7 +41,22 @@ n8n/
   youtube-description-updater.json — Bulk update YouTube video descriptions
   build_gems_workflow.py           — GEMS webinar n8n workflow generator
   rebuild_emails.py                — Rebuild email nodes as Code nodes
+gems-webinar/                      — Self-contained event folder (deployed to VPS)
+  index.html                       — Multi-step signup form
+  email-preview.html               — Interactive email preview for review
+  assets/
+    style.css                      — All styles (separated)
+    script.js                      — Countdown, A/B test, tracking, form logic
 ```
+
+## Web Hosting
+- **Domain:** `omri-iram.co.il` → VPS at `147.79.114.195`
+- **SSL:** Let's Encrypt (auto-renew)
+- **Web root:** `/var/www/omri-iram.co.il/`
+- **Nginx config:** `/etc/nginx/sites-enabled/omri-iram.co.il`
+- **Routing:** `try_files $uri $uri/ /index.php?$args;` (physical files win over CMS)
+- **Deploy new event:** `cp -r <folder> /var/www/omri-iram.co.il/` → accessible at `omri-iram.co.il/<folder>/`
+- **Architecture:** Each event is a self-contained folder with `index.html` + `assets/`. Relative paths only. Copy-paste to create new events.
 
 ## Commands
 ```bash
@@ -168,8 +185,9 @@ All branches parallel from "New Signup" trigger:
 - **Date:** Saturday, March 28, 2026, 20:30-21:30 Israel time
 - **YouTube Live:** https://youtube.com/live/y8xEvEEoVAo
 - **Channel:** עומרי אירם | להיות מורה (UCJL8oq86cIJ2_qfdwcXAV_w)
-- **Signup form:** https://omri-il.github.io/Resend-mailing-list/gems-webinar.html
-- **Email preview:** https://omri-il.github.io/Resend-mailing-list/email-preview.html
+- **Signup form:** https://omri-iram.co.il/gems-webinar/
+- **Email preview:** https://omri-iram.co.il/gems-webinar/email-preview.html
+- **GitHub Pages (backup):** https://omri-il.github.io/Resend-mailing-list/gems-webinar.html
 - **Google Sheet:** 1Dpn2QTnmoEa70bO1x9Bq3iJPWVekiUlF8oWgscDv-fQ (tab: גיליון1)
 - **Apps Script:** AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg
 - **n8n workflow ID:** zNpRoSoxjw6ydoho
