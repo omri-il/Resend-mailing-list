@@ -63,7 +63,7 @@ n8n/
   youtube-description-updater.json — Bulk update YouTube video descriptions
   build_gems_workflow.py           — GEMS webinar n8n workflow generator
   rebuild_emails.py                — Rebuild email nodes as Code nodes
-28.03.26 Gem Youtube Live/         — GEMS Webinar event folder (local + deployed to VPS as gems-webinar/)
+29.03.26 Gem Youtube Live/         — GEMS Webinar event folder (local + deployed to VPS as gems-webinar/)
   index.html                       — Single-step signup form (name, email, phone, consent)
   thank-you.html                   — Post-registration page with survey → unlocks event details
   email-preview.html               — Interactive email preview for all 4 campaign emails
@@ -217,7 +217,7 @@ All branches parallel from "New Signup" trigger:
 - **Google Sheet:** 1Dpn2QTnmoEa70bO1x9Bq3iJPWVekiUlF8oWgscDv-fQ (tab: גיליון1)
 - **Apps Script:** AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg
 - **n8n workflow ID:** zNpRoSoxjw6ydoho
-- **Local folder:** `28.03.26 Gem Youtube Live/` (deployed to VPS as `/var/www/omri-iram.co.il/gems-webinar/`)
+- **Local folder:** `29.03.26 Gem Youtube Live/` (deployed to VPS as `/var/www/omri-iram.co.il/gems-webinar/`)
 - **Form flow:** Single-step signup → redirect to thank-you.html?name=...&email=... → survey shown first → post-survey content revealed
 - **Survey location:** Always on thank-you.html (NOT on landing page)
 - **A/B testing:** Variant stored in `localStorage` as `gems_variant`
