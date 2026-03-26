@@ -90,8 +90,14 @@ Workshop reminders are drip emails — they don't need audiences or topics. This
 
 ### Contact Properties
 - `signup_source` — "workshop_form", "newsletter", "youtube"
-- `workshop_name` — latest workshop (Google Sheets is source of truth for full history)
+- `workshop_name` — workshop name + date in DD-MM-YYYY format (e.g., "GEMS Webinar 28-03-2026"). Always include the date because the same workshop may run multiple times.
 - `phone` — WhatsApp number from signup form
+
+### Workshop Form Convention
+- Every signup form MUST include a hidden field: `<input type="hidden" id="workshop_name" value="Workshop Name DD-MM-YYYY">`
+- The form sends `workshop_name` to Google Sheets, and n8n reads it from `$json.workshop_name`
+- Date format is DD-MM-YYYY (Israeli convention), never MM-DD-YYYY or "28 March"
+- The n8n Code node uses `$json.workshop_name` with a fallback hardcoded value
 
 ### Sending Guide
 | What | How | Audience | Topic |

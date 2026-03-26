@@ -404,6 +404,9 @@
         <div class="step-dot" id="dot-3"></div>
       </div>
 
+      <!-- Hidden workshop identifier (sent to Google Sheets + n8n) -->
+      <input type="hidden" id="workshop_name" value="GEMS Webinar 28-03-2026">
+
       <!-- STEP 1: Signup -->
       <div class="form-step active" id="step-1">
         <h2>שמרו לכם מקום!</h2>
@@ -567,6 +570,7 @@
       formData.email = email.value.trim();
       formData.phone = phone.value.trim();
       formData.consent = true;
+      formData.workshop_name = document.getElementById("workshop_name").value;
 
       // Switch to step 2
       document.getElementById("step-1").classList.remove("active");

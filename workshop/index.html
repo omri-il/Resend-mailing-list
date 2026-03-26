@@ -312,6 +312,9 @@
     </div>
 
     <div class="form-card">
+      <!-- Hidden workshop identifier (sent to Google Sheets + n8n) -->
+      <input type="hidden" id="workshop_name" value="Google Classroom Workshop 15-04-2026">
+
       <div id="form-view">
         <h2>שמרו לכם מקום!</h2>
         <p class="form-subtitle">מלאו את הפרטים ונשלח לכם תזכורות לפני הסדנה</p>
@@ -390,6 +393,7 @@
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
+        workshop_name: document.getElementById("workshop_name").value,
         timestamp: new Date().toLocaleString("he-IL"),
       };
 
