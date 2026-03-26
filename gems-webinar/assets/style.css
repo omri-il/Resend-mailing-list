@@ -1,0 +1,373 @@
+/* ===== GEMS Webinar Signup Form =====
+   To reuse for a new event:
+   1. Copy this entire gems-webinar/ folder
+   2. Rename the folder
+   3. Update index.html: title, dates, descriptions
+   4. Update script.js: EVENT_DATE, GOOGLE_SCRIPT_URL
+   ===================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Assistant', Arial, sans-serif;
+  background: #F8F6F1;
+  color: #2d3436;
+  direction: rtl;
+  min-height: 100vh;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  background: linear-gradient(135deg, #0D7377 0%, #14919B 40%, #9CAF88 100%);
+  color: #ffffff;
+  padding: 48px 20px 64px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 24px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.7;
+  opacity: 0.92;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.detail-item span {
+  font-size: 20px;
+}
+
+/* ===== Countdown Timer ===== */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+  direction: rtl;
+}
+
+.countdown-item {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  padding: 14px 10px 10px;
+  min-width: 68px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.countdown-item .number {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+}
+
+.countdown-item .label {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 4px;
+  display: block;
+  font-weight: 600;
+}
+
+.countdown-expired {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 28px;
+  color: #ffeaa7;
+}
+
+/* ===== Form Area ===== */
+.container {
+  max-width: 500px;
+  margin: -36px auto 40px;
+  padding: 0 20px;
+}
+
+.social-proof {
+  text-align: center;
+  margin-bottom: 12px;
+  padding-top: 8px;
+}
+
+.social-proof p {
+  font-size: 14px;
+  color: #0D7377;
+  font-weight: 700;
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 8px 32px rgba(13, 115, 119, 0.1);
+  border: 1px solid rgba(13, 115, 119, 0.06);
+}
+
+.form-card h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  text-align: center;
+  color: #0D7377;
+}
+
+.form-subtitle {
+  text-align: center;
+  font-size: 15px;
+  color: #636e72;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* ===== Step Indicators ===== */
+.step-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.step-dot.active {
+  background: #0D7377;
+  transform: scale(1.2);
+}
+
+.step-dot.completed {
+  background: #9CAF88;
+}
+
+/* ===== Form Fields ===== */
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #2d3436;
+}
+
+.field-hint {
+  font-size: 13px;
+  color: #b2bec3;
+  font-weight: 400;
+  margin-right: 4px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid #e8e8e8;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Assistant', Arial, sans-serif;
+  direction: rtl;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fafaf8;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: #14919B;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(20, 145, 155, 0.1);
+}
+
+.field input::placeholder {
+  color: #b2bec3;
+}
+
+/* ===== Consent Checkbox ===== */
+.consent-field {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.consent-field input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: #0D7377;
+  cursor: pointer;
+}
+
+.consent-field label {
+  font-size: 14px;
+  color: #636e72;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* ===== Buttons ===== */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: #E8734A;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 19px;
+  font-weight: 800;
+  font-family: 'Assistant', Arial, sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 8px;
+}
+
+.submit-btn:hover {
+  background: #d4622e;
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.trust-line {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #b2bec3;
+}
+
+/* ===== Step Sections ===== */
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+/* ===== Success / Confirmation ===== */
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.success-msg .checkmark {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.success-msg h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0D7377;
+  margin-bottom: 10px;
+}
+
+.success-msg p {
+  font-size: 16px;
+  color: #636e72;
+  line-height: 1.7;
+}
+
+.event-details-box {
+  background: #f0fafa;
+  border: 2px solid #d0eded;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: right;
+}
+
+.event-details-box .detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.event-details-box .detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.event-details-box .detail-row span {
+  font-size: 18px;
+}
+
+.footer {
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 13px;
+  color: #b2bec3;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 480px) {
+  .hero { padding: 36px 16px 52px; }
+  .hero h1 { font-size: 30px; }
+  .hero p { font-size: 16px; }
+  .form-card { padding: 28px 20px; }
+  .details { gap: 14px; }
+  .countdown { gap: 8px; }
+  .countdown-item { min-width: 60px; padding: 12px 8px 8px; }
+  .countdown-item .number { font-size: 26px; }
+}
