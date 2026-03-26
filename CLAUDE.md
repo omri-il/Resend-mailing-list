@@ -2,6 +2,19 @@
 
 Hebrew RTL email system using React Email v5+ and Resend SDK, with automated workshop signup flows via n8n.
 
+## Design & Conversion Guidelines
+
+Whenever building or improving any **landing page, signup form, email template, or marketing/conversion asset** in this project, always read and apply these three skill resources:
+
+- `~/.claude/skills/landing-page-guidelines/GUIDELINES.md` — Full strategic framework: Sinek (WHY/HOW/WHAT structure), Godin (permission levels by traffic temperature), Hormozi (Value Equation). Use for site architecture, section order, and trust design.
+- `~/.claude/skills/hormozi-conversion/SKILL.md` — Tactical execution: run the 5-step Value Equation workflow before writing any headline, CTA, or offer section. Auto-triggers on landing pages and sales copy.
+- `~/.claude/skills/frontend-design/` — Production-grade UI: distinctive visual design, anti-generic-AI aesthetics. Use when writing HTML/CSS for any page or component.
+
+**In practice:**
+1. Read `landing-page-guidelines` first → decide structure and section order
+2. Run `/hormozi-conversion` → write outcome-focused headlines, CTAs, and proof
+3. Apply `/frontend-design` → implement the visual design
+
 ## Tech Stack
 - **Runtime:** Node.js + TypeScript (ESM)
 - **Email templates:** React Email (`@react-email/components`)
