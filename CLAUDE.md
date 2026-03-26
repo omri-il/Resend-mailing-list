@@ -37,6 +37,8 @@ docs/
 n8n/
   workshop-reminders-workflow.json  — Original n8n workflow export
   youtube-description-updater.json — Bulk update YouTube video descriptions
+  build_gems_workflow.py           — GEMS webinar n8n workflow generator
+  rebuild_emails.py                — Rebuild email nodes as Code nodes
 ```
 
 ## Commands
@@ -159,6 +161,21 @@ All branches parallel from "New Signup" trigger:
 | `newsletter` | 🤖 טיפ AI שבועי | title, intro, tip, linkUrl, linkText |
 | `announcement` | 🎉 הודעה חשובה | title, body, ctaText, ctaUrl |
 | `plain` | הודעה מעומרי אירם | to, message |
+| `gems-confirmation` | נרשמת בהצלחה! וובינר Gemini Gems 🎓 | firstName, youtubeUrl |
+
+## GEMS Webinar (28 March 2026)
+- **Event:** YouTube Live — Gemini Gems in education
+- **Date:** Saturday, March 28, 2026, 20:30-21:30 Israel time
+- **YouTube Live:** https://youtube.com/live/y8xEvEEoVAo
+- **Channel:** עומרי אירם | להיות מורה (UCJL8oq86cIJ2_qfdwcXAV_w)
+- **Signup form:** https://omri-il.github.io/Resend-mailing-list/gems-webinar.html
+- **Email preview:** https://omri-il.github.io/Resend-mailing-list/email-preview.html
+- **Google Sheet:** 1Dpn2QTnmoEa70bO1x9Bq3iJPWVekiUlF8oWgscDv-fQ (tab: גיליון1)
+- **Apps Script:** AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg
+- **n8n workflow ID:** zNpRoSoxjw6ydoho
+- **Features:** Multi-step form (signup → survey → confirmation), A/B testing (variant in localStorage), conversion tracking (Clarity custom tags)
+- **Email schedule:** Confirmation (immediate) → Fri AM reminder (09:00) → Fri PM last reminder (16:00) → Recording (Sat 22:00)
+- **Shabbat rule:** No emails during Shabbat — last reminder Friday 16:00
 
 ## YouTube Bulk Description Updater
 - **n8n workflow ID:** b99qy5w6WaTQ3cPZ
