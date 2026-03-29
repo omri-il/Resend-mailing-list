@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Preview — Cheat Code Live</title>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Assistant', Arial, sans-serif; background: #1a1a2e; color: #fff; direction: rtl; }
+    .page-header { text-align: center; padding: 32px 20px 8px; }
+    .page-header h1 { font-size: 28px; color: #7C3AED; margin-bottom: 4px; }
+    .page-header p  { font-size: 15px; color: #636e72; }
+    .nav { display: flex; justify-content: center; gap: 10px; padding: 20px 20px 8px; flex-wrap: wrap; }
+    .nav button {
+      padding: 10px 18px; border: 2px solid #7C3AED; border-radius: 10px;
+      background: transparent; color: #7C3AED; font-family: 'Assistant', sans-serif;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .nav button.active, .nav button:hover { background: #7C3AED; color: #fff; }
+    .preview-container { max-width: 700px; margin: 0 auto 48px; padding: 0 20px; }
+    .email-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 4px; flex-wrap: wrap; gap: 8px;
+    }
+    .email-label   { font-size: 13px; color: #636e72; }
+    .email-subject { font-size: 13px; color: #7C3AED; font-weight: 700; direction: rtl; }
+    .email-frame   { border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .email-content { display: none; }
+    .email-content.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h1>תצוגה מקדימה — אימיילים</h1>
+    <p>לייב צ'יט-קוד למורים · שני 30 במרץ 2026 · 20:00</p>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="show(0)">1 · אישור הרשמה</button>
+    <button onclick="show(1)">2 · בוקר האירוע</button>
+    <button onclick="show(2)">3 · 3 שעות לפני</button>
+    <button onclick="show(3)">4 · ההקלטה מוכנה</button>
+  </div>
+
+  <div class="preview-container">
+    <div class="email-meta">
+      <span class="email-label" id="email-label">אימייל 1 מתוך 4 — נשלח מיד אחרי הרשמה</span>
+      <span class="email-subject" id="email-subject">נושא: נרשמת! מקומך שמור לשידור החי 🤖</span>
+    </div>
+    <div class="email-frame">
+
+      <!-- EMAIL 1: Confirmation -->
+      <div class="email-content active" id="email-0">
+        <div dir="rtl" style="font-family:Assistant,Arial,sans-serif;background:#f0eaff;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;">
+            <div style="text-align:center;padding:20px 0 24px;">
+              <h1 style="color:#7C3AED;font-size:26px;margin:0;">עומרי אירם</h1>
+              <p style="color:#636e72;font-size:13px;margin-top:4px;">לייב צ'יט-קוד למורים</p>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#1a0a3d;font-size:22px;text-align:right;margin-bottom:16px;">היי [שם], נרשמת! 🎉</h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;">
+                מקומך שמור בשידור החי!<br><br>
+                <strong style="color:#1a0a3d;">הלייב:</strong> שני, 30 במרץ 2026, 20:00–21:00<br>
+                <strong style="color:#1a0a3d;">איפה:</strong> שידור חי ביוטיוב<br><br>
+                🔑 <strong style="color:#E8734A;">חשוב:</strong> הלינק לשידור יישלח אך ורק בקבוצת הוואטסאפ השקטה שנכנסתם אליה. אם עדיין לא הצטרפתם — עשו זאת עכשיו מדף התודה.<br><br>
+                בשידור נבנה ביחד עוזר AI שיחסוך לכם לפחות 5 שעות עבודה בשבוע. בוא/י מוכנ/ת!
+              </p>
+            </div>
+            <div style="text-align:center;padding:24px 0 12px;">
+              <a href="REPLACE_WITH_WHATSAPP_GROUP_URL" style="background:#25D366;border-radius:10px;color:#fff;font-size:17px;font-weight:700;text-decoration:none;padding:14px 32px;display:inline-block;">
+                📲 הצטרפות לקבוצת הוואטסאפ
+              </a>
+            </div>
+            <p style="font-size:13px;color:#636e72;text-align:center;">לא יכול/ה להגיע? הלייב יוקלט וישלח לכולם לאחר האירוע.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL 2: Morning of event -->
+      <div class="email-content" id="email-1">
+        <div dir="rtl" style="font-family:Assistant,Arial,sans-serif;background:#f0eaff;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;">
+            <div style="text-align:center;padding:20px 0 24px;">
+              <h1 style="color:#7C3AED;font-size:26px;margin:0;">עומרי אירם</h1>
+              <p style="color:#636e72;font-size:13px;margin-top:4px;">לייב צ'יט-קוד למורים</p>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#1a0a3d;font-size:22px;text-align:right;margin-bottom:16px;">היום הלייב! — 2 דקות הכנה לפני ה-20:00 ⚡</h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;">
+                היי [שם],<br><br>
+                הלייב הזה מתחיל <strong style="color:#E8734A;">היום בלילה ב-20:00</strong>. לפני שמגיעים — הכנה של 2 דקות שתגדיל את הערך שתקבלו:<br><br>
+                <strong style="color:#1a0a3d;">טיפ לפני הלייב:</strong><br>
+                פתחו את <a href="https://gemini.google.com" style="color:#7C3AED;">gemini.google.com</a> ובדקו שיש לכם גישה. זה הכלי שנשתמש בו בשידור — ותרצו להיות מוכנים לבנות ביחד.<br><br>
+                אם יש לכם שאלה אחת שתרצו שאענה עליה — שמרו אותה לשידור. אגיב בזמן אמת.
+              </p>
+            </div>
+            <div style="text-align:center;padding:24px 0 12px;">
+              <a href="https://gemini.google.com" style="background:#7C3AED;border-radius:10px;color:#fff;font-size:17px;font-weight:700;text-decoration:none;padding:14px 32px;display:inline-block;">
+                פתחו את Gemini עכשיו →
+              </a>
+            </div>
+            <p style="font-size:13px;color:#636e72;text-align:center;">הלינק ללייב יגיע בוואטסאפ ב-19:55</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL 3: 3 hours before -->
+      <div class="email-content" id="email-2">
+        <div dir="rtl" style="font-family:Assistant,Arial,sans-serif;background:#f0eaff;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;">
+            <div style="text-align:center;padding:20px 0 24px;">
+              <h1 style="color:#7C3AED;font-size:26px;margin:0;">עומרי אירם</h1>
+              <p style="color:#636e72;font-size:13px;margin-top:4px;">לייב צ'יט-קוד למורים</p>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <div style="background:#fff3e0;border-right:4px solid #E8734A;padding:12px 16px;border-radius:8px;margin-bottom:20px;">
+                <p style="font-size:15px;font-weight:700;color:#E8734A;text-align:right;">⏰ בעוד כ-3 שעות — הלייב מתחיל!</p>
+              </div>
+              <h2 style="color:#1a0a3d;font-size:22px;text-align:right;margin-bottom:16px;">עוד 3 שעות... הצ'יט-קוד מחכה לכם</h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;">
+                היי [שם],<br><br>
+                ב-20:00 הלילה נבנה ביחד עוזר AI שמכין שיעורים, בודק מבחנים, ומפחית את העומס שלכם.<br><br>
+                <strong style="color:#1a0a3d;">מה לתכין:</strong><br>
+                📝 מחברת או דף לרשום<br>
+                💻 Gemini פתוח ומוכן<br>
+                🤔 שאלה אחת שתרצו לשאול<br><br>
+                הלינק לשידור יגיע בוואטסאפ מיד לפני שמתחילים.
+              </p>
+            </div>
+            <div style="text-align:center;padding:24px 0 12px;">
+              <p style="font-size:15px;color:#fff;background:#1a0a3d;border-radius:10px;padding:14px 32px;display:inline-block;font-weight:700;">
+                20:00 — שידור חי ביוטיוב
+              </p>
+            </div>
+            <p style="font-size:13px;color:#636e72;text-align:center;">
+              בסוף הלייב נציג אפשרות להמשיך יחד לאתגר הפסח — 197 ₪ דמי רצינות (מוחזרים למי שמיישם)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL 4: Recording -->
+      <div class="email-content" id="email-3">
+        <div dir="rtl" style="font-family:Assistant,Arial,sans-serif;background:#f0eaff;padding:40px 20px;">
+          <div style="max-width:600px;margin:0 auto;">
+            <div style="text-align:center;padding:20px 0 24px;">
+              <h1 style="color:#7C3AED;font-size:26px;margin:0;">עומרי אירם</h1>
+              <p style="color:#636e72;font-size:13px;margin-top:4px;">לייב צ'יט-קוד למורים</p>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:32px;direction:rtl;">
+              <h2 style="color:#1a0a3d;font-size:22px;text-align:right;margin-bottom:16px;">ההקלטה מוכנה + הצעה מיוחדת 🎬</h2>
+              <p style="font-size:16px;line-height:26px;color:#4a4a68;text-align:right;">
+                היי [שם],<br><br>
+                תודה שהצטרפתם ללייב! ההקלטה מוכנה לצפייה — כולל ה"צ'יט-קודס" שבנינו ביחד.<br><br>
+                <strong style="color:#E8734A;">🎯 והצעה מיוחדת למשתתפי הלייב:</strong><br>
+                "אתגר נחיתה רכה מפסח: בונים צוות AI אישי ב-5 ימים"<br><br>
+                ✅ 3 מפגשים ממוקדים<br>
+                ✅ 3 עוזרי AI מוכנים לשימוש<br>
+                ✅ 197 ₪ — מוחזרים למי שמיישם!<br><br>
+                האתגר מתחיל אחרי פסח. מקומות מוגבלים.
+              </p>
+            </div>
+            <div style="text-align:center;padding:24px 0;">
+              <a href="REPLACE_WITH_YOUTUBE_URL" style="background:#1a0a3d;border-radius:10px;color:#fff;font-size:16px;font-weight:700;text-decoration:none;padding:13px 28px;display:inline-block;margin-left:8px;">
+                🎬 לצפייה בהקלטה
+              </a>
+              <a href="REPLACE_WITH_CHECKOUT_URL" style="background:#E8734A;border-radius:10px;color:#fff;font-size:16px;font-weight:700;text-decoration:none;padding:13px 28px;display:inline-block;">
+                🎯 להצטרפות לאתגר →
+              </a>
+            </div>
+            <p style="font-size:13px;color:#636e72;text-align:center;">מחיר מיוחד לנוכחי הלייב בלבד · מוגבל בזמן</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /email-frame -->
+  </div><!-- /preview-container -->
+
+  <script>
+    const labels = [
+      "אימייל 1 מתוך 4 — נשלח מיד אחרי הרשמה",
+      "אימייל 2 מתוך 4 — נשלח ב-09:00 ביום האירוע (30.03)",
+      "אימייל 3 מתוך 4 — נשלח ב-17:00 (3 שעות לפני)",
+      "אימייל 4 מתוך 4 — נשלח ב-12:00 יום לאחר האירוע",
+    ];
+    const subjects = [
+      "נושא: נרשמת! מקומך שמור לשידור החי 🤖",
+      "נושא: היום הלייב! — 2 דקות הכנה לפני ה-20:00 ⚡",
+      "נושא: עוד 3 שעות... הצ'יט-קוד מחכה לכם",
+      "נושא: ההקלטה מוכנה + הצעה מיוחדת 🎬",
+    ];
+    const btns = document.querySelectorAll(".nav button");
+
+    function show(i) {
+      document.querySelectorAll(".email-content").forEach((el, j) => {
+        el.classList.toggle("active", j === i);
+      });
+      btns.forEach((b, j) => b.classList.toggle("active", j === i));
+      document.getElementById("email-label").textContent   = labels[i];
+      document.getElementById("email-subject").textContent = subjects[i];
+    }
+  </script>
+</body>
+</html>

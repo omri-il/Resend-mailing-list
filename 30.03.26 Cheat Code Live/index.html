@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לייב חינמי: בניית עוזר AI אישי ב-3 דקות — עומרי אירם</title>
+
+  <!-- Analytics: Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w1ajcl9gof");
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Assistant', Arial, sans-serif;
+      background: #F9F8FF;
+      color: #1a0a3d;
+      direction: rtl;
+    }
+
+    /* ═══ MICRO-SURVEY OVERLAY ═══ */
+    .survey-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 12, 41, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .survey-overlay.open { display: flex; }
+
+    .survey-modal {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 28px;
+      max-width: 480px;
+      width: 100%;
+      text-align: right;
+      animation: popIn 0.28s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .survey-modal .modal-icon { font-size: 40px; text-align: center; margin-bottom: 14px; }
+    .survey-modal h3 {
+      font-size: 22px; font-weight: 800; color: #1a0a3d;
+      text-align: center; margin-bottom: 10px;
+    }
+    .survey-modal p {
+      font-size: 15px; color: #636e72; line-height: 1.6;
+      text-align: center; margin-bottom: 22px;
+    }
+
+    .survey-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+
+    .survey-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 2px solid #e8e0ff;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d3436;
+      line-height: 1.5;
+    }
+    .survey-option input[type="radio"] { margin-top: 2px; flex-shrink: 0; accent-color: #7C3AED; }
+    .survey-option:has(input:checked) {
+      border-color: #7C3AED;
+      background: #f5f0ff;
+    }
+
+    .survey-btn {
+      width: 100%;
+      padding: 14px;
+      background: #E8734A;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 800;
+      font-family: 'Assistant', Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .survey-btn:hover { background: #d4622e; transform: translateY(-1px); }
+    .survey-btn:active { transform: translateY(0); }
+    .survey-btn:disabled { background: #b2bec3; cursor: not-allowed; transform: none; }
+    .survey-note { text-align: center; font-size: 12px; color: #b2bec3; margin-top: 12px; }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      background: linear-gradient(150deg, #0f0c29 0%, #2d1b69 55%, #6c3fc7 100%);
+      color: #fff;
+      padding: 52px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(124,58,237,0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 24px;
+      padding: 7px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      margin-bottom: 24px;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 18px;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-how {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: 0.88;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-event-strip {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.9;
+      margin-bottom: 28px;
+    }
+    .hero-event-strip span {
+      background: rgba(255,255,255,0.1);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      direction: ltr;
+    }
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 62px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .countdown-item .number {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+    }
+    .countdown-item .label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 4px;
+    }
+    .countdown-expired {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.12);
+      padding: 12px 24px;
+      border-radius: 12px;
+    }
+
+    /* ═══ CONTAINER ═══ */
+    .container {
+      max-width: 600px;
+      margin: -44px auto 0;
+      padding: 0 20px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══ FORM CARD ═══ */
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      box-shadow: 0 8px 40px rgba(15, 12, 41, 0.15);
+      margin-bottom: 40px;
+    }
+
+    .form-card h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a0a3d;
+      margin-bottom: 6px;
+    }
+    .form-subtitle {
+      font-size: 14px;
+      color: #636e72;
+      margin-bottom: 22px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #2d3436;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e8e0ff;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Assistant', Arial, sans-serif;
+      direction: rtl;
+      background: #faf8ff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      color: #1a0a3d;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: #7C3AED;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+    .field input::placeholder { color: #b2bec3; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: #E8734A;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 19px;
+      font-weight: 800;
+      font-family: 'Assistant', Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 6px;
+    }
+    .submit-btn:hover { background: #d4622e; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { background: #b2bec3; cursor: not-allowed; transform: none; }
+
+    .trust-line {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 12px;
+      color: #b2bec3;
+    }
+
+    /* ═══ SECTION TITLE ═══ */
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a0a3d;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* ═══ OUTCOMES ═══ */
+    .outcomes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .outcome-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      box-shadow: 0 2px 12px rgba(15,12,41,0.06);
+      border-right: 4px solid #7C3AED;
+    }
+    .outcome-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+    .outcome-text h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a0a3d;
+      margin-bottom: 4px;
+    }
+    .outcome-text p { font-size: 14px; color: #636e72; line-height: 1.5; }
+    .outcome-text .so-that {
+      font-size: 13px;
+      color: #7C3AED;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+
+    /* ═══ SOCIAL PROOF ═══ */
+    .proof-strip {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 12px rgba(15,12,41,0.06);
+    }
+    .proof-numbers { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .proof-num { text-align: center; }
+    .proof-num .big {
+      font-size: 32px; font-weight: 800; color: #7C3AED;
+      display: block; line-height: 1;
+    }
+    .proof-num .small { font-size: 13px; color: #636e72; margin-top: 4px; }
+
+    /* ═══ WHO IT'S FOR ═══ */
+    .audience-section { margin-bottom: 36px; }
+    .audience-grid { display: flex; flex-direction: column; gap: 10px; }
+    .audience-yes, .audience-no {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(15,12,41,0.05);
+      line-height: 1.5;
+    }
+    .audience-yes { border-right: 4px solid #9CAF88; color: #2d3436; }
+    .audience-no  { border-right: 4px solid #e17055; color: #636e72; }
+
+    /* ═══ AUTHORITY ═══ */
+    .authority-section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 12px rgba(15,12,41,0.06);
+    }
+    .authority-section p {
+      font-size: 15px;
+      color: #4a4a68;
+      line-height: 1.7;
+    }
+    .authority-section strong { color: #7C3AED; }
+
+    /* ═══ URGENCY BANNER ═══ */
+    .urgency-banner {
+      background: linear-gradient(135deg, #E8734A 0%, #c0392b 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 16px 20px;
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #b2bec3;
+    }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 480px) {
+      .hero { padding: 40px 16px 68px; }
+      .hero h1 { font-size: 28px; }
+      .hero-how { font-size: 15px; }
+      .form-card { padding: 28px 20px; }
+      .countdown { gap: 7px; }
+      .countdown-item { min-width: 55px; }
+      .countdown-item .number { font-size: 22px; }
+      .proof-numbers { gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       MICRO-SURVEY POPUP (hidden until CTA click)
+       ══════════════════════════════════════════ -->
+  <div id="survey-overlay" class="survey-overlay">
+    <div class="survey-modal">
+      <div class="modal-icon">🎉</div>
+      <h3>מעולה, כמעט בפנים!</h3>
+      <p>כדי שאדע בדיוק על מה לשים דגש בשידור ולהתאים אותו אליכם — איפה אתם עומדים היום מבחינת השימוש ב-AI?</p>
+      <div class="survey-options">
+        <label class="survey-option">
+          <input type="radio" name="ai_level" value="beginner">
+          <span>אני מתחיל/ה לגמרי — אין לי ניסיון, אני כאן כדי ללמוד את הבסיס</span>
+        </label>
+        <label class="survey-option">
+          <input type="radio" name="ai_level" value="advanced">
+          <span>אני מתקדם/ת — כבר משתמש/ת ב-AI, רוצה כלים מתקדמים כדי לעלות רמה</span>
+        </label>
+      </div>
+      <button class="survey-btn" id="survey-submit-btn" onclick="completeSurvey()">המשך לשלב האחרון &gt;&gt;</button>
+      <p class="survey-note">🔒 הפרטים שלכם מאובטחים. אין ספאם.</p>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       HERO
+       ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-eyebrow">💡 הדרכת לייב מיוחדת וחינמית למורים</div>
+
+    <h1>איך לבנות "עוזר AI אישי" שיכין עבורכם את השיעורים ויבדוק מבחנים אוטומטית — כדי שתחזרו מפסח בנחיתה רכה (ובלי שחיקה)</h1>
+
+    <p class="hero-how">
+      גם אם אין לכם שום ידע טכני או רקע קודם.<br>
+      בואו לקבל את ה"צ'יט-קודס" שחוסכים למורים לפחות <strong>5 שעות עבודה בשבוע</strong>.
+    </p>
+
+    <div class="hero-event-strip">
+      <span>📅 שני, 30 במרץ 2026</span>
+      <span>🕗 20:00 — 21:00</span>
+      <span>▶️ שידור חי ביוטיוב</span>
+    </div>
+
+    <div id="countdown" class="countdown"></div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       MAIN — Form + Content
+       ══════════════════════════════════════════ -->
+  <div class="container">
+
+    <!-- URGENCY BANNER -->
+    <div class="urgency-banner">
+      ⚡ הלייב מחר בלילה! שריינו מקום עכשיו כדי לקבל תזכורת ב-WhatsApp
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <h2>שמרו לכם מקום בחינם</h2>
+      <p class="form-subtitle">30 שניות — ומקומכם שמור</p>
+
+      <div class="field">
+        <label for="name">שם פרטי</label>
+        <input type="text" id="name" placeholder="איך קוראים לך?" required>
+      </div>
+      <div class="field">
+        <label for="email">אימייל</label>
+        <input type="email" id="email" placeholder="example@email.com" dir="ltr" required>
+      </div>
+
+      <input type="hidden" id="workshop_name" value="Cheat Code Live 30-03-2026">
+
+      <button type="button" class="submit-btn" id="submit-btn" onclick="openSurvey()">שריין לי מקום בשידור החינמי! →</button>
+      <div class="trust-line">🔒 ללא ספאם. רק תזכורת אחת וחומרי השידור. ניתן להסרה בכל עת.</div>
+    </div>
+
+    <!-- WHAT YOU GET -->
+    <p class="section-title">מה תצאו איתו מהלייב</p>
+    <div class="outcomes-list">
+      <div class="outcome-item">
+        <div class="outcome-icon">🤖</div>
+        <div class="outcome-text">
+          <h4>עוזר AI אישי — בנוי בשידור חי ב-3 דקות</h4>
+          <p>לא תיאוריה. נבנה ביחד עוזר שמכין מערכי שיעור, מנסח שאלות לבחינה, ומסכם חומר — בסגנון שלכם.</p>
+          <div class="so-that">← כדי שתצאו עם כלי שאפשר להשתמש בו כבר מחר בבוקר</div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-icon">⚡</div>
+        <div class="outcome-text">
+          <h4>שבוע ראשון אחרי פסח — מוכן מראש</h4>
+          <p>הטריק הכי שמור של מורים שחוסכים זמן: לתת לעוזר AI להכין את "שלד השבוע" מראש, בלי לעבוד דקה במוצאי החג.</p>
+          <div class="so-that">← כדי שתחזרו מפסח רגועים ובנחת, בלי לחץ ראשון</div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-icon">🎯</div>
+        <div class="outcome-text">
+          <h4>3 צ'יט-קודס שמורים לא מכירים</h4>
+          <p>קיצורי דרך שחוסכים 20-30 דקות על כל מערך שיעור, בלי ללמוד מחדש, בלי לשנות את הסגנון שלכם.</p>
+          <div class="so-that">← כדי שתחסכו לפחות 5 שעות עבודה בשבוע, כבר מהשבוע הראשון</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF -->
+    <div class="proof-strip">
+      <div class="proof-numbers">
+        <div class="proof-num">
+          <span class="big">4,200+</span>
+          <span class="small">מורים בערוץ</span>
+        </div>
+        <div class="proof-num">
+          <span class="big">12 שנה</span>
+          <span class="small">הוראה בשטח</span>
+        </div>
+        <div class="proof-num">
+          <span class="big">חינמי</span>
+          <span class="small">100% ללא תשלום</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHO IT'S FOR -->
+    <div class="audience-section">
+      <p class="section-title">הלייב הזה בשבילך אם...</p>
+      <div class="audience-grid">
+        <div class="audience-yes">✅ אתה/את מורה שרוצה לחסוך זמן ולהפחית עומס</div>
+        <div class="audience-yes">✅ ניסית AI אבל עדיין לא מצאת את הכלי שעובד לך</div>
+        <div class="audience-yes">✅ אתה/את רוצה לחזור מפסח עם "שלד שבוע" מוכן</div>
+        <div class="audience-yes">✅ אין לך ניסיון טכני — ואתה/את רוצה להתחיל בפשוט</div>
+        <div class="audience-no">❌ מפתחי תוכנה שמחפשים API — זה לא הלייב הזה</div>
+        <div class="audience-no">❌ מי שכבר בנה מערכת AI מלאה ומחפש קורס מתקדם</div>
+      </div>
+    </div>
+
+    <!-- AUTHORITY -->
+    <div class="authority-section">
+      <p>
+        <strong>עומרי אירם</strong> — מורה לביולוגיה (5 יח') בתל אביב כבר 12 שנה, רכז תקשוב, ומנהל קהילת
+        <strong>GEG Google ישראל</strong>. מרצה keynote בכנסים של משרד החינוך, 3 כתבות טלוויזיה, ומוביל
+        סדנאות AI לאלפי מורים. מדבר מהשטח — כי הוא עדיין מורה מן השורה בדיוק כמוכם.
+      </p>
+    </div>
+
+    <!-- SECOND CTA -->
+    <div class="form-card" style="text-align:center; padding: 28px 20px;">
+      <p style="font-size:16px; font-weight:700; color:#1a0a3d; margin-bottom:14px;">
+        מקומות מוגבלים — שריינו עכשיו בחינם
+      </p>
+      <button type="button" class="submit-btn" onclick="document.getElementById('name').focus(); window.scrollTo({top:0,behavior:'smooth'})">
+        שריין לי מקום בשידור החינמי! →
+      </button>
+    </div>
+
+  </div><!-- /container -->
+
+  <div class="footer">עומרי אירם • סדנאות ולייבים AI למורים • omri-iram.co.il</div>
+
+  <script src="./assets/script.js"></script>
+</body>
+</html>

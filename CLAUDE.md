@@ -70,6 +70,13 @@ n8n/
   assets/
     style.css                      — All styles (separated)
     script.js                      — Countdown, form submit, redirect logic
+30.03.26 Cheat Code Live/          — Cheat Code Live event folder (deployed to VPS as cheat-code-live/)
+  index.html                       — Landing page with micro-survey popup (name + email only)
+  thank-you.html                   — WhatsApp group redirect (registration completion)
+  checkout.html                    — Challenge checkout page (197 NIS, opens at end of live)
+  email-preview.html               — Interactive email preview for all 4 campaign emails
+  assets/
+    script.js                      — Countdown, survey popup, form submit, redirect logic
 ```
 
 ## Web Hosting
@@ -217,12 +224,32 @@ All branches parallel from "New Signup" trigger:
 - **Google Sheet:** 1Dpn2QTnmoEa70bO1x9Bq3iJPWVekiUlF8oWgscDv-fQ (tab: גיליון1)
 - **Apps Script:** AKfycbwB7JaxpULgTMvIMsJxk5vP3FH91FFs-Q4LuPch_wdQtPl9kOPgKBzredZUX2IEM7IJRg
 - **n8n workflow ID:** zNpRoSoxjw6ydoho
-- **Local folder:** `29.03.26 Gem Youtube Live/` (deployed to VPS as `/var/www/omri-iram.co.il/gems-webinar/`)
+- **Local folder:** `29.03.26 Gem Youtube Live/` → renamed from `28.03.26` (deployed to VPS as `/var/www/omri-iram.co.il/gems-webinar/`)
 - **Form flow:** Single-step signup → redirect to thank-you.html?name=...&email=... → survey shown first → post-survey content revealed
 - **Survey location:** Always on thank-you.html (NOT on landing page)
 - **A/B testing:** Variant stored in `localStorage` as `gems_variant`
 - **Email schedule:** Confirmation (immediate) → Fri AM reminder (09:00) → Fri PM last reminder (16:00) → Recording (after event)
 - **Shabbat rule:** No emails during Shabbat — last reminder Friday 16:00, event is Sunday 20:00
+
+## Cheat Code Live (30 March 2026)
+- **Event:** YouTube Live — Building a personal AI assistant in 3 minutes (for teachers)
+- **Offer at end:** "אתגר נחיתה רכה מפסח: בונים צוות AI אישי ב-5 ימים" — 197 NIS (Win Your Money Back)
+- **Date:** Monday, March 30, 2026, 20:00-21:00 Israel time
+- **Signup form:** https://omri-iram.co.il/cheat-code-live/
+- **Thank-you page:** https://omri-iram.co.il/cheat-code-live/thank-you.html
+- **Checkout page:** https://omri-iram.co.il/cheat-code-live/checkout.html
+- **Email preview:** https://omri-iram.co.il/cheat-code-live/email-preview.html
+- **n8n workflow ID:** cZtW8xnqMNva3ZMu
+- **Local folder:** `30.03.26 Cheat Code Live/` (deployed to VPS as `/var/www/omri-iram.co.il/cheat-code-live/`)
+- **Form flow:** Name + email → micro-survey popup (AI level) → submit to Sheets → thank-you.html → WhatsApp group
+- **Survey:** Popup on landing page BEFORE form submits (beginner / advanced), answer saved to Sheets
+- **Email schedule:** Confirmation (immediate) → Morning 30.03 09:00 → Afternoon 30.03 17:00 → Recording 31.03 12:00
+- **Pending setup:**
+  - Create Google Sheet + deploy Apps Script → update `GOOGLE_SCRIPT_URL` in `assets/script.js`
+  - Create WhatsApp group → update `WHATSAPP_GROUP_URL` in `thank-you.html`, `email-preview.html`, and n8n workflow
+  - Connect payment provider → update `REPLACE_WITH_PAYMENT_URL` in `checkout.html`
+  - Activate n8n workflow in n8n UI (ID: cZtW8xnqMNva3ZMu)
+  - Update `SHEET_ID` in `n8n/build_cheat_code_workflow.py` after creating the Google Sheet
 
 ## YouTube Bulk Description Updater
 - **n8n workflow ID:** b99qy5w6WaTQ3cPZ
