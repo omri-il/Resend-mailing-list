@@ -2,3 +2,5 @@ node_modules/
 dist/
 .env
 .react-email/
+__pycache__/
+*.pyc

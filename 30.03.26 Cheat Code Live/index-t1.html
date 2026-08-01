@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לייב חינמי: בניית עוזר AI אישי ב-3 דקות — עומרי אירם</title>
+
+  <!-- Clarity Analytics -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w1ajcl9gof");
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Heebo', Arial, sans-serif;
+      background: #FAFAF8;
+      color: #1A1A1A;
+      direction: rtl;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── STEP VISIBILITY ── */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      background: #FAFAF8;
+      padding: 60px 24px 52px;
+      text-align: center;
+      border-bottom: 1px solid #EDECE8;
+    }
+
+    .pre-headline {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #E07B39;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(25px, 5vw, 40px);
+      font-weight: 900;
+      line-height: 1.28;
+      max-width: 580px;
+      margin: 0 auto 18px;
+      color: #1A1A1A;
+    }
+
+    .hero .sub {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: #666;
+      max-width: 420px;
+      margin: 0 auto 28px;
+    }
+
+    .hero .sub strong { color: #1A1A1A; font-weight: 700; }
+
+    .event-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 500;
+      color: #999;
+      margin-bottom: 30px;
+    }
+
+    .event-meta span { padding: 0 12px; }
+    .event-meta span + span { border-right: 1px solid #DDD; }
+
+    /* countdown */
+    #countdown {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4px;
+      direction: ltr;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 52px;
+    }
+
+    .cd-num {
+      font-size: 34px;
+      font-weight: 900;
+      color: #1A1A1A;
+      line-height: 1;
+    }
+
+    .cd-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #BBB;
+      margin-top: 5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .cd-sep {
+      font-size: 28px;
+      font-weight: 300;
+      color: #DDD;
+      padding-top: 2px;
+      line-height: 1;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
+      border-top: 1px solid #EDECE8;
+      border-bottom: 1px solid #EDECE8;
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 22px 8px;
+    }
+
+    .stat + .stat { border-right: 1px solid #EDECE8; }
+
+    .stat-num {
+      display: block;
+      font-size: 26px;
+      font-weight: 900;
+      color: #1A1A1A;
+      line-height: 1;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 11px;
+      color: #AAA;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ── FORM ── */
+    .form-wrap {
+      max-width: 440px;
+      margin: 52px auto;
+      padding: 0 24px;
+    }
+
+    .form-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+    }
+
+    .form-sub {
+      font-size: 13px;
+      color: #BBB;
+      margin-bottom: 36px;
+    }
+
+    .field { margin-bottom: 30px; }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #BBB;
+      margin-bottom: 10px;
+    }
+
+    .field input {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #E8E7E3;
+      background: transparent;
+      font-family: 'Heebo', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #1A1A1A;
+      padding: 8px 0 12px;
+      outline: none;
+      transition: border-color 0.2s;
+      text-align: right;
+    }
+
+    .field input[dir="ltr"] { text-align: left; }
+    .field input::placeholder { color: #D0D0CC; font-weight: 400; font-size: 16px; }
+    .field input:focus { border-bottom-color: #E07B39; }
+
+    .cta-btn {
+      display: block;
+      width: 100%;
+      background: #E07B39;
+      color: #fff;
+      font-family: 'Heebo', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      border: none;
+      border-radius: 3px;
+      padding: 17px 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      margin-bottom: 12px;
+    }
+
+    .cta-btn:hover { background: #C86A28; }
+    .cta-btn:active { transform: scale(0.98); }
+
+    .form-note {
+      text-align: center;
+      font-size: 12px;
+      color: #CCC;
+    }
+
+    /* ── CHECKLIST ── */
+    .section-wrap {
+      max-width: 440px;
+      margin: 0 auto 52px;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #CCC;
+      margin-bottom: 22px;
+    }
+
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #F0F0EC;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-mark {
+      color: #E07B39;
+      font-weight: 900;
+      font-size: 15px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check-mark.no { color: #DDD; }
+
+    .checklist li .item-title { font-weight: 700; color: #1A1A1A; }
+    .checklist li .item-body  { font-weight: 400; color: #888; font-size: 14px; margin-top: 2px; }
+
+    /* ── QUOTE ── */
+    .quote-wrap {
+      max-width: 440px;
+      margin: 0 auto 52px;
+      padding: 0 24px 0 24px;
+      border-right: 3px solid #E07B39;
+      padding-right: 22px;
+    }
+
+    .quote-text {
+      font-size: 19px;
+      font-weight: 300;
+      font-style: italic;
+      color: #2A2A2A;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .quote-attr {
+      font-size: 13px;
+      color: #AAA;
+      font-style: normal;
+    }
+
+    /* ── AUTHORITY ── */
+    .authority {
+      max-width: 440px;
+      margin: 0 auto 52px;
+      padding: 0 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .authority-photo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #F0F0EC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .authority-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .authority-text h3 { font-size: 15px; font-weight: 800; color: #1A1A1A; margin-bottom: 5px; }
+    .authority-text p  { font-size: 13px; color: #777; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #CCC;
+      border-top: 1px solid #EDECE8;
+    }
+
+    /* ══ STEP 2: SURVEY ══ */
+    .survey-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      background: #FAFAF8;
+    }
+
+    .survey-card { max-width: 420px; width: 100%; }
+
+    .survey-emoji { font-size: 38px; margin-bottom: 18px; display: block; }
+
+    .survey-card h2 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #1A1A1A;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .survey-card .desc {
+      font-size: 15px;
+      color: #777;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .survey-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      border: 2px solid #E8E7E3;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .survey-option:has(input:checked) {
+      border-color: #E07B39;
+      background: #FFF8F4;
+    }
+
+    .survey-option input { margin-top: 3px; accent-color: #E07B39; flex-shrink: 0; }
+    .survey-option span  { font-size: 15px; font-weight: 500; color: #333; line-height: 1.45; }
+
+    /* ══ STEP 3: WHATSAPP ══ */
+    .wa-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      background: #FAFAF8;
+      text-align: center;
+    }
+
+    .wa-wrap h1 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #B0302A;
+      line-height: 1.3;
+      margin: 12px 0 6px;
+    }
+
+    .wa-greeting {
+      font-size: 16px;
+      font-weight: 700;
+      color: #E07B39;
+      margin-bottom: 20px;
+    }
+
+    .wa-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+      max-width: 380px;
+      margin: 0 auto 28px;
+      text-align: right;
+    }
+
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: #fff;
+      font-family: 'Heebo', Arial, sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      border-radius: 3px;
+      padding: 18px 32px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      margin-bottom: 14px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .wa-btn:hover  { background: #1eaa55; }
+    .wa-btn:active { transform: scale(0.98); }
+
+    .wa-note { font-size: 12px; color: #CCC; line-height: 1.7; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      .hero { padding: 44px 20px 40px; }
+      .hero h1 { font-size: 23px; }
+      .event-meta span { padding: 0 8px; font-size: 13px; }
+      .authority { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     STEP 1 — OPT-IN
+     ══════════════════════════════════════════ -->
+<div id="step1" class="step active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="pre-headline">💡 הדרכת לייב חינמית למורים</span>
+
+    <h1>
+      איך לבנות "עוזר AI אישי" שיכין עבורכם את השיעורים ויבדוק מבחנים אוטומטית —
+      כדי שתחזרו מפסח בנחיתה רכה (ובלי שחיקה)
+    </h1>
+
+    <p class="sub">
+      בואו לקבל את ה"צ'יט-קודס" שחוסכים למורים לפחות
+      <strong>5 שעות עבודה בשבוע</strong>.<br>גם אם אין לכם ידע טכני.
+    </p>
+
+    <div class="event-meta">
+      <span>שני, 30 במרץ 2026</span>
+      <span>20:00 — 21:00</span>
+      <span>שידור חי ביוטיוב</span>
+    </div>
+
+    <div id="countdown"></div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-num">4,200+</span>
+      <span class="stat-label">מורים בערוץ</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">12 שנה</span>
+      <span class="stat-label">הוראה בשטח</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">חינמי</span>
+      <span class="stat-label">100% ללא תשלום</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrap">
+    <h2 class="form-title">שמרו לכם מקום</h2>
+    <p class="form-sub">30 שניות — ומקומכם שמור</p>
+
+    <div class="field">
+      <label for="f-name">שם פרטי</label>
+      <input id="f-name" type="text" placeholder="איך קוראים לך?" autocomplete="given-name" />
+    </div>
+
+    <div class="field">
+      <label for="f-email">אימייל</label>
+      <input id="f-email" type="email" placeholder="example@email.com" dir="ltr" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="f-phone">וואטסאפ <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px">— לתזכורת לפני הלייב</span></label>
+      <input id="f-phone" type="tel" placeholder="050-1234567" dir="ltr" autocomplete="tel" />
+    </div>
+
+    <input type="hidden" id="workshop_name" value="Cheat Code Live 30-03-2026">
+
+    <button class="cta-btn" onclick="goToStep2()">שריין לי מקום בשידור החינמי! →</button>
+    <p class="form-note">🔒 ללא ספאם. רק תזכורת אחת. ניתן להסרה בכל עת.</p>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="section-wrap">
+    <p class="section-label">מה תצאו איתו מהלייב</p>
+    <ul class="checklist">
+      <li>
+        <span class="check-mark">✓</span>
+        <div>
+          <div class="item-title">עוזר AI אישי — בנוי ב-3 דקות</div>
+          <div class="item-body">לא תיאוריה. נבנה ביחד עוזר שמכין מערכי שיעור, מנסח שאלות לבחינה, ומסכם חומר — בסגנון שלכם.</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-mark">✓</span>
+        <div>
+          <div class="item-title">שבוע ראשון אחרי פסח — מוכן מראש</div>
+          <div class="item-body">הטריק הכי שמור: לתת לעוזר AI להכין "שלד השבוע" בלי לעבוד דקה במוצאי החג.</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-mark">✓</span>
+        <div>
+          <div class="item-title">3 צ'יט-קודס שמורים לא מכירים</div>
+          <div class="item-body">קיצורי דרך שחוסכים 20–30 דקות על כל מערך שיעור, בלי ללמוד מחדש ובלי לשנות את הסגנון שלכם.</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-mark">✓</span>
+        <div>
+          <div class="item-title">מתאים לכם גם ללא ידע טכני</div>
+          <div class="item-body">הלייב בנוי למי שמתחיל מאפס. אם ניסיתם ולא מצאתם כלי שעובד — זה בדיוק בשבילכם.</div>
+        </div>
+      </li>
+      <li style="opacity:0.45">
+        <span class="check-mark no">✗</span>
+        <div>
+          <div class="item-title" style="font-weight:500">מפתחי תוכנה שמחפשים API — זה לא הלייב הזה</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-wrap">
+    <p class="quote-text">"הכלים האלה שינו לי את השבוע. אני מכינה מערך שיעור תוך 10 דקות."</p>
+    <p class="quote-attr">— מורה לאנגלית, 8 שנות ניסיון</p>
+  </div>
+
+  <!-- AUTHORITY -->
+  <div class="authority">
+    <!--
+      📸 PHOTO PLACEHOLDER
+      Replace REPLACE_WITH_PHOTO_URL with actual photo URL.
+      Recommended: 120x120px circular crop.
+    -->
+    <div class="authority-photo">
+      <img src="REPLACE_WITH_PHOTO_URL" alt="עומרי אירם"
+           onerror="this.parentElement.innerHTML='👨&#8203;&#8203;🏫'" />
+    </div>
+    <div class="authority-text">
+      <h3>עומרי אירם</h3>
+      <p>מורה לביולוגיה כבר 12 שנה, רכז תקשוב, ומנהל קהילת GEG Google ישראל. מרצה בכנסי משרד החינוך, 3 כתבות טלוויזיה, מוביל סדנאות AI לאלפי מורים.</p>
+    </div>
+  </div>
+
+  <!-- SECOND CTA -->
+  <div class="form-wrap" style="margin-top:0">
+    <button class="cta-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); document.getElementById('f-name').focus()">
+      שריין לי מקום בשידור החינמי! →
+    </button>
+    <p class="form-note">מקומות מוגבלים — חינמי לחלוטין</p>
+  </div>
+
+  <div class="footer">עומרי אירם • omri-iram.co.il</div>
+</div><!-- /step1 -->
+
+
+<!-- ══════════════════════════════════════════
+     STEP 2 — MICRO-SURVEY
+     ══════════════════════════════════════════ -->
+<div id="step2" class="step">
+  <div class="survey-wrap">
+    <div class="survey-card">
+      <span class="survey-emoji">🎉</span>
+      <h2>מעולה, כמעט בפנים!</h2>
+      <p class="desc">
+        כדי שאדע בדיוק על מה לשים דגש בשידור ולהתאים אותו אליכם —
+        <strong>איפה אתם עומדים היום מבחינת השימוש ב-AI?</strong>
+      </p>
+
+      <label class="survey-option">
+        <input type="radio" name="ai_level" value="beginner">
+        <span>אני מתחיל/ה לגמרי — אין לי ניסיון, אני כאן כדי ללמוד את הבסיס</span>
+      </label>
+
+      <label class="survey-option">
+        <input type="radio" name="ai_level" value="advanced">
+        <span>אני מתקדם/ת — כבר משתמש/ת ב-AI, רוצה כלים מתקדמים כדי לעלות רמה</span>
+      </label>
+
+      <button class="cta-btn" id="survey-btn" onclick="submitForm()" style="margin-top:22px">
+        המשך לשלב האחרון >>
+      </button>
+      <p class="form-note">🔒 הפרטים שלכם מאובטחים. אין ספאם.</p>
+    </div>
+  </div>
+</div><!-- /step2 -->
+
+
+<!-- ══════════════════════════════════════════
+     STEP 3 — GATEKEEPER (WhatsApp)
+     ══════════════════════════════════════════ -->
+<div id="step3" class="step">
+  <div class="wa-wrap">
+    <span style="font-size:44px">🛑</span>
+    <h1>עצור/עצרי!<br>ההרשמה שלך עדיין לא הושלמה</h1>
+    <p id="step3-greeting" class="wa-greeting"></p>
+
+    <p class="wa-desc">
+      כדי שלא תפספסו את השידור — <strong>הלינק לשידור החי יישלח אך ורק בקבוצת הוואטסאפ השקטה</strong>.<br><br>
+      הקבוצה מוגדרת כ"הודעות ממנהלים בלבד" — <strong>אין חפירות, אין בלגן</strong>. רק תזכורת אחת לפני שמתחילים, והלינק ב-20:00.
+    </p>
+
+    <!--
+      📲 WHATSAPP GROUP LINK
+      Replace href with actual WhatsApp group invite URL.
+      Example: href="https://chat.whatsapp.com/XXXXXXXXXXXXXXXXX"
+    -->
+    <a href="REPLACE_WITH_WHATSAPP_GROUP_URL" class="wa-btn" onclick="trackWA()">
+      📲 הצטרפות לקבוצת הוואטסאפ השקטה
+    </a>
+
+    <p class="wa-note">
+      🔒 קבוצה שקטה — הודעות ממנהלים בלבד.<br>אפשר לצאת בכל עת.
+    </p>
+
+    <div style="margin-top:48px;font-size:12px;color:#CCC">עומרי אירם • omri-iram.co.il</div>
+  </div>
+</div><!-- /step3 -->
+
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════ -->
+<script>
+// ─── CONFIGURATION ───────────────────────────────────────────
+const EVENT_DATE = new Date("2026-03-30T20:00:00+03:00");
+
+// TODO: Replace with Apps Script URL after creating the Google Sheet
+const GOOGLE_SCRIPT_URL = "REPLACE_WITH_APPS_SCRIPT_URL";
+// ─────────────────────────────────────────────────────────────
+
+
+// ─── COUNTDOWN ───────────────────────────────────────────────
+function updateCountdown() {
+  const diff = EVENT_DATE - new Date();
+  const el   = document.getElementById("countdown");
+  if (!el) return;
+  if (diff <= 0) {
+    el.innerHTML = '<span style="font-size:15px;font-weight:700;color:#E07B39">השידור החי כבר התחיל!</span>';
+    return;
+  }
+  const pad = n => String(n).padStart(2, '0');
+  const d   = Math.floor(diff / 86400000);
+  const h   = Math.floor((diff % 86400000) / 3600000);
+  const m   = Math.floor((diff % 3600000) / 60000);
+  const s   = Math.floor((diff % 60000) / 1000);
+
+  const unit = (n, l) =>
+    '<div class="cd-unit"><span class="cd-num">' + pad(n) + '</span>' +
+    '<span class="cd-label">' + l + '</span></div>';
+  const sep = '<span class="cd-sep">:</span>';
+
+  el.innerHTML = unit(s,'שניות') + sep + unit(m,'דקות') + sep + unit(h,'שעות') + sep + unit(d,'ימים');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+
+// ─── STEP NAVIGATION ─────────────────────────────────────────
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToStep2() {
+  const name  = document.getElementById('f-name');
+  const email = document.getElementById('f-email');
+  const phone = document.getElementById('f-phone');
+
+  if (!name.value.trim())                                { name.focus();  return; }
+  if (!email.value.trim() || !email.validity.valid)      { email.focus(); return; }
+  if (!phone.value.trim())                               { phone.focus(); return; }
+
+  if (window.clarity) clarity('set', 'funnel_step', 'survey_opened');
+  showStep(2);
+}
+
+async function submitForm() {
+  const selected = document.querySelector('input[name="ai_level"]:checked');
+  if (!selected) { alert('נא לבחור אפשרות אחת לפני שממשיכים'); return; }
+
+  const btn = document.getElementById('survey-btn');
+  btn.disabled    = true;
+  btn.textContent = 'שולח...';
+
+  const data = {
+    name:          document.getElementById('f-name').value.trim(),
+    email:         document.getElementById('f-email').value.trim(),
+    phone:         document.getElementById('f-phone').value.trim(),
+    ai_level:      selected.value,
+    workshop_name: document.getElementById('workshop_name').value,
+    timestamp:     new Date().toLocaleString('he-IL'),
+  };
+
+  const greetEl = document.getElementById('step3-greeting');
+  if (greetEl) greetEl.textContent = 'היי ' + data.name + ', כמעט שם! \uD83D\uDC4B';
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode:   'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(data),
+    });
+  } catch (_) { /* no-cors always throws — that's expected */ }
+
+  if (window.clarity) clarity('set', 'funnel_step', 'signup_complete');
+  showStep(3);
+}
+
+function trackWA() {
+  if (window.clarity) clarity('set', 'funnel_step', 'whatsapp_clicked');
+}
+</script>
+
+</body>
+</html>
